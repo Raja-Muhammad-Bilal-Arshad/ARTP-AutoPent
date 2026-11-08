@@ -1,0 +1,10 @@
+{
+    "cloudtrail_detection_rate": 0.0,
+    "mean_time_to_detect": 0.0,
+    "exfiltrated": 0,
+    "critical_assets_compromised": 0,
+    "technique_diversity": 0,
+    "timestamp": "2025-12-12T13:55:00.205900Z",
+    "seed": 18328,
+    "run_id": 1
+}

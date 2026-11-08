@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "generated_at": "2025-12-07T09:46:17Z",
+    "tool": "AutoPENT Cloud Recon v2.0 (God Mode)",
+    "target_endpoint": "http://localhost:4566"
+  },
+  "s3_buckets": [
+    {
+      "name": "dev-terraform-state",
+      "public": false,
+      "vuln_type": "secure",
+      "attack_score": 0
+    },
+    {
+      "name": "financial-backups-prod",
+      "public": true,
+      "vuln_type": "T1530 - Public Bucket Exposure",
+      "attack_score": 15
+    }
+  ],
+  "iam_identities": {
+    "users": [
+      {
+        "name": "deploy-bot",
+        "is_admin": false,
+        "vuln_type": "T1087 - Account Discovery"
+      }
+    ],
+    "roles": []
+  },
+  "lambda_functions": [],
+  "secrets": [],
+  "apis": []
+}

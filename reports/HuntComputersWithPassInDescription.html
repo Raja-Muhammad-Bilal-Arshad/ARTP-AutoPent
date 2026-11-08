@@ -1,0 +1,26 @@
+<HTML><head><style>
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+</style></head><Body><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.blue.min.css" integrity="sha512-jJ9r3lTLaH5XXa9ZOsCQU8kLvxdAVzyTWO/pnzdZrshJQfnw1oevJFpoyCDr7K1lqt1hUgqoxA5e2PctVtlSTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$(function(){$("table").tablesorter({theme:"blue",widgets:["zebra","filter","resizable"],ignoreCase:!0})});</script>
+
+<h1>Hunt - Computers with Pass or PW in Description</h1>
+<tt>Report Date: 2024-06-17 03:16:06</tt>
+<hr />
+<tt>Total Rows: <span class="total-rows">  </span><br>
+Filtered Rows:  <span class="filter-rows"> </span>
+</tt>
+<br><div style='width:50%; display:inline-block;'><tt><u>Cypher Query</u>:<br>MATCH (n:Computer) WHERE n.description =~ '(?i).*(pass|pw).*' RETURN n.name as Name, n.domain, n.enabled as Enabled,n.haslaps as LAPS, n.highvalue as HighValue,n.operatingsystem as OS,  n.description as Description, toString(datetime({epochSeconds: ToInteger(coalesce(n.pwdlastset,0))})) as PWDLastSet, toString(datetime({epochSeconds: ToInteger(coalesce(n.lastlogontimestamp,0))})) as LastLogonTimeStamp, n.serviceprincipalnames as SPN ORDER BY n.highvalue DESC , n.name ASC</tt></div><script>$("table").bind("filterInit filterEnd pagerComplete",function(t,l){$("span.filter-rows").html(l.filteredRows),$("span.total-rows").html(l.totalRows)});</script>
+<hr />
+<br /><tt>Report Title: Hunt - Computers with Pass or PW in Description</tt>
+<br /><tt>Report Date: 2024-06-17 03:16:06</tt>
+<br /><tt>Produced by <a href="https://github.com/PlumHound">PlumHound</a>
+<br /><tt>Special thanks to <a href="https://www.defensiveorigins.com">Defensive Origins</a> and <a href="https://www.blackhillsinfosec.com">Black Hills Information Security</a>
+<br />
+</body></html>

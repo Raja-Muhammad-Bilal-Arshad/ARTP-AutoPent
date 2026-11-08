@@ -1,0 +1,35 @@
+<HTML><head><style>
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+</style></head><Body><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.blue.min.css" integrity="sha512-jJ9r3lTLaH5XXa9ZOsCQU8kLvxdAVzyTWO/pnzdZrshJQfnw1oevJFpoyCDr7K1lqt1hUgqoxA5e2PctVtlSTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$(function(){$("table").tablesorter({theme:"blue",widgets:["zebra","filter","resizable"],ignoreCase:!0})});</script>
+
+<h1>Operating Systems Unsupported</h1>
+<tt>Report Date: 2024-06-17 03:16:04</tt>
+<hr />
+<tt>Total Rows: <span class="total-rows">  </span><br>
+Filtered Rows:  <span class="filter-rows"> </span>
+</tt>
+<table>
+<thead>
+<tr><th>Computer                 </th><th>UnsupportedOS      </th><th>Enabled  </th><th>PWDLastSet          </th><th>LastLogonTimeStamp  </th></tr>
+</thead>
+<tbody>
+<tr><td>WIN2K8-TS01.DOAZLAB.COM  </td><td>Windows Server 2008</td><td>True     </td><td>2024-06-14T04:44:04Z</td><td>1969-12-31T23:59:59Z</td></tr>
+<tr><td>WIN2K3-DEV.DOAZLAB.COM   </td><td>Windows Server 2003</td><td>True     </td><td>2024-06-14T04:44:03Z</td><td>1969-12-31T23:59:59Z</td></tr>
+<tr><td>WIN2K8-CITRIX.DOAZLAB.COM</td><td>Windows Server 2008</td><td>True     </td><td>2024-06-14T04:44:03Z</td><td>1969-12-31T23:59:59Z</td></tr>
+</tbody>
+</table><br><div style='width:50%; display:inline-block;'><tt><u>Cypher Query</u>:<br>MATCH (c:Computer) WHERE c.operatingsystem =~ '.*(2000|2003|2008|2012|xp|vista|7|me).*' RETURN c.name as Computer, c.operatingsystem as UnsupportedOS, c.enabled as Enabled, toString(datetime({epochSeconds: ToInteger(coalesce(c.pwdlastset,0))})) as PWDLastSet, toString(datetime({epochSeconds: ToInteger(coalesce(c.lastlogontimestamp,0))})) as LastLogonTimeStamp</tt></div><script>$("table").bind("filterInit filterEnd pagerComplete",function(t,l){$("span.filter-rows").html(l.filteredRows),$("span.total-rows").html(l.totalRows)});</script>
+<hr />
+<br /><tt>Report Title: Operating Systems Unsupported</tt>
+<br /><tt>Report Date: 2024-06-17 03:16:04</tt>
+<br /><tt>Produced by <a href="https://github.com/PlumHound">PlumHound</a>
+<br /><tt>Special thanks to <a href="https://www.defensiveorigins.com">Defensive Origins</a> and <a href="https://www.blackhillsinfosec.com">Black Hills Information Security</a>
+<br />
+</body></html>

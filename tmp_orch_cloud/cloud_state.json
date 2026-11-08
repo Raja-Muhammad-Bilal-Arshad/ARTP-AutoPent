@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "generated_at": "2025-12-12T13:55:55Z",
+    "source": "AutoPENT Cloud Recon",
+    "profile": "Black Hat Simulation",
+    "sandbox": true
+  },
+  "s3_buckets": [],
+  "iam_identities": {
+    "users": [],
+    "roles": []
+  },
+  "lambda_functions": [],
+  "recon_data": {
+    "meta": {
+      "generated_at": "2025-12-12T13:55:53Z",
+      "tool": "AutoPENT Cloud Recon v2.0 (God Mode)",
+      "target_endpoint": "http://localhost:4566"
+    },
+    "s3_buckets": [],
+    "iam_identities": {
+      "users": [],
+      "roles": []
+    },
+    "lambda_functions": [],
+    "secrets": [],
+    "apis": [],
+    "analysis_summary": {
+      "critical_assets": 0,
+      "public_buckets": 0,
+      "admin_roles": 0
+    }
+  },
+  "exploits_attempted": [],
+  "intelligence": {
+    "critical_assets": 0,
+    "public_buckets": 0,
+    "admin_roles": 0
+  }
+}

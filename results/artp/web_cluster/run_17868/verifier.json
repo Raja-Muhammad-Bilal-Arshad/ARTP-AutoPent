@@ -1,0 +1,44 @@
+{
+  "verifier_checks": [
+    {
+      "step_id": "phase_1_recon_fingerprint",
+      "status": "ok",
+      "issues": []
+    },
+    {
+      "step_id": "phase_2_enum_fuzzing",
+      "status": "ok",
+      "issues": []
+    },
+    {
+      "step_id": "phase_3_access_credential_spray",
+      "status": "flagged",
+      "issues": [
+        "high_impact_medium"
+      ]
+    },
+    {
+      "step_id": "phase_4_exploit_sqli_rce",
+      "status": "flagged",
+      "issues": [
+        "high_impact_critical"
+      ]
+    },
+    {
+      "step_id": "phase_5_privesc_kernel",
+      "status": "flagged",
+      "issues": [
+        "high_impact_critical"
+      ]
+    },
+    {
+      "step_id": "phase_6_exfil_c2",
+      "status": "flagged",
+      "issues": [
+        "high_impact_critical"
+      ]
+    }
+  ],
+  "final_decision": "hold_for_human",
+  "timestamp": "2025-12-06T19:07:16Z"
+}

@@ -1,0 +1,7 @@
+Simulated Action,"The ""Real World"" Tool it Represents"
+crawl,OWASP ZAP / Burp Suite Pro / GoBuster
+enumerate,Nmap / Nikto / Enum4Linux
+check_creds,Hydra / Patator / Medusa
+attempt_exploit_simulated,Metasploit Framework (MSF) / Custom Python PoCs
+escalate_simulated,LinPEAS / Mimikatz / GTFOBins
+ingest (AD),BloodHound / SharpHound

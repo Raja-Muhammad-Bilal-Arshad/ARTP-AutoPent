@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "generated_utc": "2025-12-07T14:53:09.249435Z",
+    "agent": "APT_Cloud_Native_BEAST_v3",
+    "seed": 10294,
+    "ground_truth_metrics": {
+      "optimal_path_length": 3,
+      "stealth_budget_max": 3.7800000000000002
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_01_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.96,
+        "impact": "high",
+        "stealth_cost": 0.5,
+        "technique": "T1550.001 - Application Access Token",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Assuming high-value role: lambda-ex"
+    },
+    {
+      "step_id": "phase_02_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.92,
+        "impact": "critical",
+        "stealth_cost": 0.9,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "PrivEsc: Attaching 'AdministratorAccess' policy to current user."
+    },
+    {
+      "step_id": "phase_03_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Persistence: Creating shadow access keys for existing Admin user."
+    }
+  ]
+}

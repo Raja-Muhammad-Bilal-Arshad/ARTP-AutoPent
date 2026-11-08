@@ -1,0 +1,4 @@
+Computer,Description,Enabled,OS,SPN
+WIN2K3-DEV.DOAZLAB.COM,,True,Windows Server 2003,[]
+WIN2K8-CITRIX.DOAZLAB.COM,,True,Windows Server 2008,[]
+WIN2K8-TS01.DOAZLAB.COM,,True,Windows Server 2008,[]

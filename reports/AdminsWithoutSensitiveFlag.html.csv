@@ -1,0 +1,34 @@
+Group,User,DisplayName,Description,Enabled,PWDNeverExpire,TrustedToAuth,UncDelegation
+DOMAIN ADMINS@DOAZLAB.COM,ASHLEE_FIELDS@DOAZLAB.COM,ASHLEE_FIELDS,Created with secframe.com/badblood.,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,SAMUEL_NAVARRO@DOAZLAB.COM,SAMUEL_NAVARRO,Created with secframe.com/badblood.,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,GERTRUDE_GRIMES@DOAZLAB.COM,GERTRUDE_GRIMES,Created with secframe.com/badblood.,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,BENJAMIN_MCNEIL@DOAZLAB.COM,BENJAMIN_MCNEIL,Created with secframe.com/badblood.,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,DOLABSDA@DOAZLAB.COM,DOLabsDA,,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,MINDY_BROCK@DOAZLAB.COM,MINDY_BROCK,Created with secframe.com/badblood.,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,DOADMIN@DOAZLAB.COM,,Built-in account for administering the computer/domain,True,False,,False
+DOMAIN ADMINS@DOAZLAB.COM,SSILVER@DOAZLAB.COM,Silver Sandy,,True,True,,False
+ADMINISTRATORS@DOAZLAB.COM,RAPHAEL_BOLTON@DOAZLAB.COM,RAPHAEL_BOLTON,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,DOADMIN@DOAZLAB.COM,,Built-in account for administering the computer/domain,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,SUZETTE_WILLIAM@DOAZLAB.COM,SUZETTE_WILLIAM,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,LINDA_HERMAN@DOAZLAB.COM,LINDA_HERMAN,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,ASHLEE_FIELDS@DOAZLAB.COM,ASHLEE_FIELDS,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,SAMUEL_NAVARRO@DOAZLAB.COM,SAMUEL_NAVARRO,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,GERTRUDE_GRIMES@DOAZLAB.COM,GERTRUDE_GRIMES,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,BENJAMIN_MCNEIL@DOAZLAB.COM,BENJAMIN_MCNEIL,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,DOLABSDA@DOAZLAB.COM,DOLabsDA,,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,MINDY_BROCK@DOAZLAB.COM,MINDY_BROCK,Created with secframe.com/badblood.,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,DOADMIN@DOAZLAB.COM,,Built-in account for administering the computer/domain,True,False,,False
+ADMINISTRATORS@DOAZLAB.COM,SSILVER@DOAZLAB.COM,Silver Sandy,,True,True,,False
+ADMINISTRATORS@DOAZLAB.COM,SSILVER@DOAZLAB.COM,Silver Sandy,,True,True,,False
+ADMINISTRATORS@DOAZLAB.COM,DOADMIN@DOAZLAB.COM,,Built-in account for administering the computer/domain,True,False,,False
+ENTERPRISE ADMINS@DOAZLAB.COM,SSILVER@DOAZLAB.COM,Silver Sandy,,True,True,,False
+ENTERPRISE ADMINS@DOAZLAB.COM,DOADMIN@DOAZLAB.COM,,Built-in account for administering the computer/domain,True,False,,False
+ACCOUNT OPERATORS@DOAZLAB.COM,BENITA_MORRISON@DOAZLAB.COM,BENITA_MORRISON,Created with secframe.com/badblood.,True,False,,False
+ACCOUNT OPERATORS@DOAZLAB.COM,SHAUNA_WHITNEY@DOAZLAB.COM,SHAUNA_WHITNEY,Created with secframe.com/badblood.,True,False,,False
+DOMAIN CONTROLLERS@DOAZLAB.COM,2259425603SA@DOAZLAB.COM,2259425603SA,Created with secframe.com/badblood.,True,False,,False
+DOMAIN CONTROLLERS@DOAZLAB.COM,RODNEY_FRANKLIN@DOAZLAB.COM,RODNEY_FRANKLIN,Created with secframe.com/badblood.,True,False,,False
+PRINT OPERATORS@DOAZLAB.COM,CLIFTON_SIMS@DOAZLAB.COM,CLIFTON_SIMS,Created with secframe.com/badblood.,True,False,,False
+PRINT OPERATORS@DOAZLAB.COM,ALISSA_HUFFMAN@DOAZLAB.COM,ALISSA_HUFFMAN,Created with secframe.com/badblood.,True,False,,False
+BACKUP OPERATORS@DOAZLAB.COM,SIDNEY_ROSE@DOAZLAB.COM,SIDNEY_ROSE,Created with secframe.com/badblood.,True,False,,False
+BACKUP OPERATORS@DOAZLAB.COM,DEANN_BLANCHARD@DOAZLAB.COM,DEANN_BLANCHARD,Just so I dont forget my password is 5&j2ZNGQHuxgct8h!!!pvL9vP,True,False,,False
+SERVER OPERATORS@DOAZLAB.COM,KAREEM_MADDOX@DOAZLAB.COM,KAREEM_MADDOX,Created with secframe.com/badblood.,True,False,,False

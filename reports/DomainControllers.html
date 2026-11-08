@@ -1,0 +1,33 @@
+<HTML><head><style>
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+</style></head><Body><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.blue.min.css" integrity="sha512-jJ9r3lTLaH5XXa9ZOsCQU8kLvxdAVzyTWO/pnzdZrshJQfnw1oevJFpoyCDr7K1lqt1hUgqoxA5e2PctVtlSTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$(function(){$("table").tablesorter({theme:"blue",widgets:["zebra","filter","resizable"],ignoreCase:!0})});</script>
+
+<h1>Domain Controllers</h1>
+<tt>Report Date: 2024-06-17 03:16:01</tt>
+<hr />
+<tt>Total Rows: <span class="total-rows">  </span><br>
+Filtered Rows:  <span class="filter-rows"> </span>
+</tt>
+<table>
+<thead>
+<tr><th>Hostname        </th><th>OS                            </th><th>Description  </th><th>Created             </th><th>LAPS  </th><th>Enabled  </th><th>DN                                             </th></tr>
+</thead>
+<tbody>
+<tr><td>DC01.DOAZLAB.COM</td><td>Windows Server 2022 Datacenter</td><td>             </td><td>1970-01-01T00:00:00Z</td><td>False </td><td>True     </td><td>CN=DC01,OU=Domain Controllers,DC=doazlab,DC=com</td></tr>
+</tbody>
+</table><br><div style='width:50%; display:inline-block;'><tt><u>Cypher Query</u>:<br>MATCH (c:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectid ENDS WITH '-516' RETURN c.name as Hostname, c.operatingsystem as OS, c.description as Description,toString(datetime({epochSeconds: ToInteger(coalesce(c.whencreated,0))})) as Created,c.haslaps as LAPS, c.enabled as Enabled, c.distinguishedname as DN</tt></div><script>$("table").bind("filterInit filterEnd pagerComplete",function(t,l){$("span.filter-rows").html(l.filteredRows),$("span.total-rows").html(l.totalRows)});</script>
+<hr />
+<br /><tt>Report Title: Domain Controllers</tt>
+<br /><tt>Report Date: 2024-06-17 03:16:01</tt>
+<br /><tt>Produced by <a href="https://github.com/PlumHound">PlumHound</a>
+<br /><tt>Special thanks to <a href="https://www.defensiveorigins.com">Defensive Origins</a> and <a href="https://www.blackhillsinfosec.com">Black Hills Information Security</a>
+<br />
+</body></html>

@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  # ---------------------------------------------------------
+  # 1. LocalStack (The Fake AWS Backbone)
+  # Simulates: S3, IAM, Lambda, SecretsManager, STS, API Gateway
+  # ---------------------------------------------------------
+  localstack:
+    image: localstack/localstack:latest  # Use 'localstack/localstack' if you don't have a pro key, standard features still work for this
+    container_name: autopent_cloud_aws
+    ports:
+      - "4566:4566"            # Edge Port (All APIs)
+    environment:
+      - SERVICES=s3,iam,lambda,secretsmanager,sts,apigateway
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./volume:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  # ---------------------------------------------------------
+  # 2. MinIO (The Vulnerable Storage Bucket)
+  # Simulates: A misconfigured internal storage appliance
+  # ---------------------------------------------------------
+  minio:
+    image: minio/minio
+    container_name: autopent_cloud_minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000" # API
+      - "9001:9001" # Console
+    environment:
+      MINIO_ROOT_USER: "admin"
+      MINIO_ROOT_PASSWORD: "SuperSecretPassword123!"
+
+  # ---------------------------------------------------------
+  # 3. Vulnerability Injector (The "Seed" Script)
+  # Runs once to create the bad policies, buckets, and users
+  # ---------------------------------------------------------
+  cloud-setup:
+    image: alpine:latest
+    container_name: autopent_cloud_setup
+    depends_on:
+      - localstack
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+      - ENDPOINT_URL=http://localstack:4566
+    entrypoint: /bin/sh
+    command: -c "apk add --no-cache aws-cli zip python3 && sleep 10 && sh /setup/init_cloud_vulns.sh"
+    volumes:
+      - ./init_cloud_vulns.sh:/setup/init_cloud_vulns.sh

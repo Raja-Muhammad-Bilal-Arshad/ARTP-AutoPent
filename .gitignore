@@ -1,0 +1,19 @@
+# Local Python virtual environments
+myenv/
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

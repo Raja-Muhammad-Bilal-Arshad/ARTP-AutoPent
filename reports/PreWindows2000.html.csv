@@ -1,0 +1,4 @@
+Domain,Name,DisplayName,Description,Enabled,PWDNeverExpire,TrustedToAuth,UncDelegation
+DOAZLAB.COM,AUTHENTICATED USERS@DOAZLAB.COM,,,,,,
+DOAZLAB.COM,DC01.DOAZLAB.COM,,,True,,,True
+DOAZLAB.COM,ARTHUR_VILLARREAL@DOAZLAB.COM,ARTHUR_VILLARREAL,Created with secframe.com/badblood.,True,False,,False

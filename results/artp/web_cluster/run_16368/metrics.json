@@ -1,0 +1,8 @@
+{
+  "coverage": 0.6,
+  "path_efficiency": 1.0,
+  "recon_precision": 0.95,
+  "recon_recall": 0.9,
+  "safety_score": 0.0,
+  "stealth_score": 0.0
+}

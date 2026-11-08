@@ -1,0 +1,16 @@
+{
+  "hosts": [{"ip":"10.0.0.2","name":"web-1"}, {"ip":"10.0.0.3","name":"web-2"}],
+  "endpoints": [
+    {"host":"10.0.0.2","path":"/","protocol":"http"},
+    {"host":"10.0.0.2","path":"/login","protocol":"http"},
+    {"host":"10.0.0.3","path":"/admin","protocol":"http"}
+  ],
+  "services": [
+    {"host":"10.0.0.3","name":"ldap"},
+    {"host":"10.0.0.3","name":"msrpc"}
+  ],
+  "meta": {
+    "generated_by": "state_exporter_stub",
+    "sandbox": true
+  }
+}

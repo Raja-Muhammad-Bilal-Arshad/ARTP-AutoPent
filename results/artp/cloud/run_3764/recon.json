@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "generated_at": "2025-12-07T14:53:44Z",
+    "tool": "AutoPENT Cloud Recon v2.0 (God Mode)",
+    "target_endpoint": "http://localhost:4566"
+  },
+  "s3_buckets": [
+    {
+      "name": "dev-terraform-state",
+      "public": false,
+      "vuln_type": "secure",
+      "attack_score": 0
+    },
+    {
+      "name": "financial-backups-prod",
+      "public": true,
+      "vuln_type": "T1530 - Public Bucket Exposure",
+      "attack_score": 15
+    }
+  ],
+  "iam_identities": {
+    "users": [
+      {
+        "name": "deploy-bot",
+        "is_admin": false,
+        "vuln_type": "T1087 - Account Discovery"
+      }
+    ],
+    "roles": [
+      {
+        "name": "lambda-ex",
+        "trust_policy_vulnerable": false,
+        "vuln_type": "T1550 - Service Role Abuse",
+        "arn": "arn:aws:iam::000000000000:role/lambda-ex"
+      }
+    ]
+  },
+  "lambda_functions": [
+    {
+      "name": "legacy-payment-processor",
+      "runtime": "python3.8",
+      "env_vars_exposed": true,
+      "leaked_keys": [
+        "STRIPE_API_KEY"
+      ],
+      "vuln_type": "T1552.005 - Serverless Secrets"
+    }
+  ],
+  "secrets": [],
+  "apis": []
+}

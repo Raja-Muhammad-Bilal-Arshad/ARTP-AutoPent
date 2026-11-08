@@ -1,0 +1,2 @@
+Hostname,OS,Description,Created,LAPS,Enabled,DN
+DC01.DOAZLAB.COM,Windows Server 2022 Datacenter,,1970-01-01T00:00:00Z,False,True,"CN=DC01,OU=Domain Controllers,DC=doazlab,DC=com"

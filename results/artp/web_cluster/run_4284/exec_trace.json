@@ -1,0 +1,50 @@
+[
+  {
+    "step_id": "phase_1_recon_fingerprint",
+    "action": "crawl",
+    "technique": "T1592 - Gather Victim Host Information",
+    "result": "info_gathered",
+    "noise_accumulated": 0.1,
+    "timestamp": "2025-12-07T07:32:50Z"
+  },
+  {
+    "step_id": "phase_2_enum_fuzzing",
+    "action": "enumerate",
+    "technique": "T1190 - Exploit Public-Facing Application",
+    "result": "info_gathered",
+    "noise_accumulated": 0.4,
+    "timestamp": "2025-12-07T07:32:50Z"
+  },
+  {
+    "step_id": "phase_3_access_credential_spray",
+    "action": "check_creds",
+    "technique": "T1110 - Brute Force: Password Spraying",
+    "result": "info_gathered",
+    "noise_accumulated": 0.9,
+    "timestamp": "2025-12-07T07:32:50Z"
+  },
+  {
+    "step_id": "phase_4_exploit_sqli_rce",
+    "action": "attempt_exploit_simulated",
+    "technique": "T1190 - SQL Injection to RCE",
+    "result": "success",
+    "noise_accumulated": 1.7,
+    "timestamp": "2025-12-07T07:32:50Z"
+  },
+  {
+    "step_id": "phase_5_privesc_kernel",
+    "action": "escalate_simulated",
+    "technique": "T1068 - Exploitation for Privilege Escalation",
+    "result": "escalation_simulated",
+    "noise_accumulated": 2.6,
+    "timestamp": "2025-12-07T07:32:50Z"
+  },
+  {
+    "step_id": "phase_6_exfil_c2",
+    "action": "report",
+    "technique": "T1041 - Exfiltration Over C2 Channel",
+    "result": "exfiltrated",
+    "noise_accumulated": 2.8,
+    "timestamp": "2025-12-07T07:32:50Z"
+  }
+]

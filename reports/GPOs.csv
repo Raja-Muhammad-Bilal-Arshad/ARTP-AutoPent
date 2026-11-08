@@ -1,0 +1,3 @@
+GPO,HighValue,Path
+DEFAULT DOMAIN CONTROLLERS POLICY@DOAZLAB.COM,False,\\doazlab.com\sysvol\doazlab.com\Policies\{6AC1786C-016F-11D2-945F-00C04fB984F9}
+DEFAULT DOMAIN POLICY@DOAZLAB.COM,False,\\doazlab.com\sysvol\doazlab.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}

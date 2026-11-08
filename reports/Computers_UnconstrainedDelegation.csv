@@ -1,0 +1,5 @@
+Computer,Description,SPN
+WIN2K8-TS01.DOAZLAB.COM,,[]
+WIN2K3-DEV.DOAZLAB.COM,,[]
+WIN2K8-CITRIX.DOAZLAB.COM,,[]
+DC01.DOAZLAB.COM,,"['Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC01.doazlab.com', 'ldap/DC01.doazlab.com/ForestDnsZones.doazlab.com', 'ldap/DC01.doazlab.com/DomainDnsZones.doazlab.com', 'TERMSRV/DC01', 'TERMSRV/DC01.doazlab.com', 'DNS/DC01.doazlab.com', 'GC/DC01.doazlab.com/doazlab.com', 'RestrictedKrbHost/DC01.doazlab.com', 'RestrictedKrbHost/DC01', 'RPC/ec33b276-b912-4ff0-bb97-f363917a69cd._msdcs.doazlab.com', 'HOST/DC01/DOAZLAB', 'HOST/DC01.doazlab.com/DOAZLAB', 'HOST/DC01', 'HOST/DC01.doazlab.com', 'HOST/DC01.doazlab.com/doazlab.com', 'E3514235-4B06-11D1-AB04-00C04FC2DCD2/ec33b276-b912-4ff0-bb97-f363917a69cd/doazlab.com', 'ldap/DC01/DOAZLAB', 'ldap/ec33b276-b912-4ff0-bb97-f363917a69cd._msdcs.doazlab.com', 'ldap/DC01.doazlab.com/DOAZLAB', 'ldap/DC01', 'ldap/DC01.doazlab.com', 'ldap/DC01.doazlab.com/doazlab.com']"

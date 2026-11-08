@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "generated_utc": "2025-12-07T09:46:24.524906Z",
+    "agent": "APT_Cloud_Native_BEAST_v3",
+    "seed": 6334,
+    "ground_truth_metrics": {
+      "optimal_path_length": 5,
+      "stealth_budget_max": 6.12
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_01_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.99,
+        "impact": "critical",
+        "stealth_cost": 0.6,
+        "technique": "T1530 - Data from Cloud Storage Object",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Dumping contents of public bucket financial-backups-prod."
+    },
+    {
+      "step_id": "phase_02_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Modifying Bucket ACL to grant 'AuthenticatedUsers' full control (Persistence)."
+    },
+    {
+      "step_id": "phase_03_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.96,
+        "impact": "high",
+        "stealth_cost": 0.5,
+        "technique": "T1550.001 - Application Access Token",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Assuming high-value role: lambda-ex"
+    },
+    {
+      "step_id": "phase_04_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.92,
+        "impact": "critical",
+        "stealth_cost": 0.9,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "PrivEsc: Attaching 'AdministratorAccess' policy to current user."
+    },
+    {
+      "step_id": "phase_05_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Persistence: Creating shadow access keys for existing Admin user."
+    }
+  ]
+}

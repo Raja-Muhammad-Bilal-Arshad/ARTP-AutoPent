@@ -1,0 +1,36 @@
+<HTML><head><style>
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+</style></head><Body><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.blue.min.css" integrity="sha512-jJ9r3lTLaH5XXa9ZOsCQU8kLvxdAVzyTWO/pnzdZrshJQfnw1oevJFpoyCDr7K1lqt1hUgqoxA5e2PctVtlSTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$(function(){$("table").tablesorter({theme:"blue",widgets:["zebra","filter","resizable"],ignoreCase:!0})});</script>
+
+<h1>Unconstrained Delegation Computers with SPN</h1>
+<tt>Report Date: 2024-06-17 03:16:03</tt>
+<hr />
+<tt>Total Rows: <span class="total-rows">  </span><br>
+Filtered Rows:  <span class="filter-rows"> </span>
+</tt>
+<table>
+<thead>
+<tr><th>Computer                 </th><th>Description  </th><th>SPN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </th></tr>
+</thead>
+<tbody>
+<tr><td>WIN2K8-TS01.DOAZLAB.COM  </td><td>             </td><td>[]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </td></tr>
+<tr><td>WIN2K3-DEV.DOAZLAB.COM   </td><td>             </td><td>[]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </td></tr>
+<tr><td>WIN2K8-CITRIX.DOAZLAB.COM</td><td>             </td><td>[]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </td></tr>
+<tr><td>DC01.DOAZLAB.COM         </td><td>             </td><td>[&#x27;Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC01.doazlab.com&#x27;, &#x27;ldap/DC01.doazlab.com/ForestDnsZones.doazlab.com&#x27;, &#x27;ldap/DC01.doazlab.com/DomainDnsZones.doazlab.com&#x27;, &#x27;TERMSRV/DC01&#x27;, &#x27;TERMSRV/DC01.doazlab.com&#x27;, &#x27;DNS/DC01.doazlab.com&#x27;, &#x27;GC/DC01.doazlab.com/doazlab.com&#x27;, &#x27;RestrictedKrbHost/DC01.doazlab.com&#x27;, &#x27;RestrictedKrbHost/DC01&#x27;, &#x27;RPC/ec33b276-b912-4ff0-bb97-f363917a69cd._msdcs.doazlab.com&#x27;, &#x27;HOST/DC01/DOAZLAB&#x27;, &#x27;HOST/DC01.doazlab.com/DOAZLAB&#x27;, &#x27;HOST/DC01&#x27;, &#x27;HOST/DC01.doazlab.com&#x27;, &#x27;HOST/DC01.doazlab.com/doazlab.com&#x27;, &#x27;E3514235-4B06-11D1-AB04-00C04FC2DCD2/ec33b276-b912-4ff0-bb97-f363917a69cd/doazlab.com&#x27;, &#x27;ldap/DC01/DOAZLAB&#x27;, &#x27;ldap/ec33b276-b912-4ff0-bb97-f363917a69cd._msdcs.doazlab.com&#x27;, &#x27;ldap/DC01.doazlab.com/DOAZLAB&#x27;, &#x27;ldap/DC01&#x27;, &#x27;ldap/DC01.doazlab.com&#x27;, &#x27;ldap/DC01.doazlab.com/doazlab.com&#x27;]</td></tr>
+</tbody>
+</table><br><div style='width:50%; display:inline-block;'><tt><u>Cypher Query</u>:<br>MATCH (c:Computer {unconstraineddelegation:true}) return c.name as Computer, c.description as Description, c.serviceprincipalnames as SPN</tt></div><script>$("table").bind("filterInit filterEnd pagerComplete",function(t,l){$("span.filter-rows").html(l.filteredRows),$("span.total-rows").html(l.totalRows)});</script>
+<hr />
+<br /><tt>Report Title: Unconstrained Delegation Computers with SPN</tt>
+<br /><tt>Report Date: 2024-06-17 03:16:03</tt>
+<br /><tt>Produced by <a href="https://github.com/PlumHound">PlumHound</a>
+<br /><tt>Special thanks to <a href="https://www.defensiveorigins.com">Defensive Origins</a> and <a href="https://www.blackhillsinfosec.com">Black Hills Information Security</a>
+<br />
+</body></html>

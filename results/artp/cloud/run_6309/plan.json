@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "generated_utc": "2025-12-07T09:38:06.719603Z",
+    "agent": "APT_Cloud_Native_BEAST_v3",
+    "seed": 6309,
+    "ground_truth_metrics": {
+      "optimal_path_length": 2,
+      "stealth_budget_max": 2.34
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_01_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.99,
+        "impact": "critical",
+        "stealth_cost": 0.6,
+        "technique": "T1530 - Data from Cloud Storage Object",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Dumping contents of public bucket financial-backups-prod."
+    },
+    {
+      "step_id": "phase_02_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Modifying Bucket ACL to grant 'AuthenticatedUsers' full control (Persistence)."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "generated_utc": "2025-12-07T14:52:37.958132Z",
+    "agent": "APT_Cloud_Native_BEAST_v3",
+    "seed": 5258,
+    "ground_truth_metrics": {
+      "optimal_path_length": 1,
+      "stealth_budget_max": 0.36000000000000004
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_01_enumerate",
+      "action": "enumerate",
+      "target": {
+        "service": "iam",
+        "scope": "users"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "medium",
+        "stealth_cost": 0.2,
+        "technique": "T1087.004 - Cloud Account Discovery",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Blind IAM User enumeration."
+    }
+  ]
+}

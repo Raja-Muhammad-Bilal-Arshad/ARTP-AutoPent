@@ -1,0 +1,9 @@
+RULE-BASED PLANNER TEMPLATE (human-readable)
+
+This planner uses deterministic heuristics:
+ - crawl root of each host
+ - enumerate HTTP endpoints (dirs, forms)
+ - if '/admin' or '/login' endpoints found -> attempt_exploit_simulated (low-impact)
+ - enumerate LDAP/MSRPC/SMB services for version/users checks
+
+This template is for documentation only (the planner is code-based).

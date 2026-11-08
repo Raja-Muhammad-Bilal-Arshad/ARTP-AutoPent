@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "campaign_id": "OP_CLOUD_STORM_2025",
+    "adversary_profile": "Cloud-Native Threat Actor (Unit 42 Simulation)",
+    "generated_utc": "2025-10-27T08:00:00Z",
+    "objective": "Cloud Data Exfiltration & IAM Persistence",
+    "operational_security_level": "Medium",
+    "ground_truth_metrics": {
+      "optimal_path_length": 5,
+      "stealth_budget_max": 4.5
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_1_recon_buckets",
+      "action": "enumerate",
+      "target": { "service": "s3", "scope": "public" },
+      "meta": {
+        "confidence": 1.0,
+        "impact": "low",
+        "stealth_cost": 0.2,
+        "technique": "T1530 - Data from Cloud Storage"
+      },
+      "rationale": "Identify misconfigured S3 buckets allowing public listing."
+    },
+    {
+      "step_id": "phase_2_dump_secrets",
+      "action": "attempt_exploit_simulated",
+      "target": { "service": "s3", "resource": "financial-backups-prod" },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.8,
+        "technique": "T1552 - Unsecured Credentials"
+      },
+      "rationale": "Exfiltrate 'db_config.json' containing database credentials."
+    },
+    {
+      "step_id": "phase_3_enum_roles",
+      "action": "enumerate",
+      "target": { "service": "iam", "scope": "roles" },
+      "meta": {
+        "confidence": 1.0,
+        "impact": "medium",
+        "stealth_cost": 0.3,
+        "technique": "T1087.004 - Cloud Account Discovery"
+      },
+      "rationale": "Map IAM Role trust relationships to identify lateral movement paths."
+    },
+    {
+      "step_id": "phase_4_lambda_persist",
+      "action": "escalate_simulated",
+      "target": { "service": "lambda", "resource": "legacy-payment-processor" },
+      "meta": {
+        "confidence": 0.9,
+        "impact": "critical",
+        "stealth_cost": 1.5,
+        "technique": "T1098 - Account Manipulation"
+      },
+      "rationale": "Inject malicious layer into Lambda function for persistence."
+    },
+    {
+      "step_id": "phase_5_exfil_report",
+      "action": "report",
+      "target": { "data": "all_cloud_keys" },
+      "meta": {
+        "confidence": 1.0,
+        "impact": "high",
+        "stealth_cost": 0.1,
+        "technique": "T1567 - Exfiltration Over Web Service"
+      },
+      "rationale": "Report total compromise of Cloud Environment."
+    }
+  ]
+}

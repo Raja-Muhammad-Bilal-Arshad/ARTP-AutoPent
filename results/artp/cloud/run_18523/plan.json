@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "generated_utc": "2025-12-07T09:46:51.831033Z",
+    "agent": "APT_Cloud_Native_BEAST_v3",
+    "seed": 18523,
+    "ground_truth_metrics": {
+      "optimal_path_length": 10,
+      "stealth_budget_max": 10.8
+    }
+  },
+  "plan": [
+    {
+      "step_id": "phase_01_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "lambda",
+        "resource": "legacy-payment-processor"
+      },
+      "meta": {
+        "confidence": 0.99,
+        "impact": "critical",
+        "stealth_cost": 0.3,
+        "technique": "T1552.005 - Cloud Secrets in Lambda Env",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "TARGET ACQUIRED: Hardcoded secrets found in legacy-payment-processor. Extracting immediately."
+    },
+    {
+      "step_id": "phase_02_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "lambda",
+        "resource": "legacy-payment-processor"
+      },
+      "meta": {
+        "confidence": 0.9,
+        "impact": "high",
+        "stealth_cost": 0.4,
+        "technique": "T1005 - Data from Local System",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Downloading Lambda function source code to analyze for hardcoded secrets."
+    },
+    {
+      "step_id": "phase_03_report",
+      "action": "report",
+      "target": {
+        "data": "lambda_secrets",
+        "source": "legacy-payment-processor"
+      },
+      "meta": {
+        "confidence": 1.0,
+        "impact": "critical",
+        "stealth_cost": 0.2,
+        "technique": "T1567 - Exfiltration Over Web Service",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Priority Exfiltration of Lambda Environment Variables."
+    },
+    {
+      "step_id": "phase_04_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.99,
+        "impact": "critical",
+        "stealth_cost": 0.6,
+        "technique": "T1530 - Data from Cloud Storage Object",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Dumping contents of public bucket financial-backups-prod."
+    },
+    {
+      "step_id": "phase_05_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "financial-backups-prod"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Modifying Bucket ACL to grant 'AuthenticatedUsers' full control (Persistence)."
+    },
+    {
+      "step_id": "phase_06_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.96,
+        "impact": "high",
+        "stealth_cost": 0.5,
+        "technique": "T1550.001 - Application Access Token",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Assuming high-value role: lambda-ex"
+    },
+    {
+      "step_id": "phase_07_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.92,
+        "impact": "critical",
+        "stealth_cost": 0.9,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "PrivEsc: Attaching 'AdministratorAccess' policy to current user."
+    },
+    {
+      "step_id": "phase_08_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "iam",
+        "resource": "lambda-ex"
+      },
+      "meta": {
+        "confidence": 0.95,
+        "impact": "high",
+        "stealth_cost": 0.7,
+        "technique": "T1098 - Account Manipulation",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Persistence: Creating shadow access keys for existing Admin user."
+    },
+    {
+      "step_id": "phase_09_escalate_simulated",
+      "action": "escalate_simulated",
+      "target": {
+        "service": "lambda",
+        "resource": "legacy-payment-processor"
+      },
+      "meta": {
+        "confidence": 0.85,
+        "impact": "high",
+        "stealth_cost": 0.8,
+        "technique": "T1545 - Cloud Functions Abuse",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Injecting malicious Lambda Layer (C2 beacon) for persistence."
+    },
+    {
+      "step_id": "phase_10_attempt_exploit_simulated",
+      "action": "attempt_exploit_simulated",
+      "target": {
+        "service": "s3",
+        "resource": "dev-terraform-state"
+      },
+      "meta": {
+        "confidence": 0.9,
+        "impact": "critical",
+        "stealth_cost": 0.9,
+        "technique": "T1485 - Data Destruction",
+        "tool_used": "aws-cli-v2-custom"
+      },
+      "rationale": "Simulating ransomware: Encrypting bucket objects with attacker key."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "sandbox": true,
+    "experiment_id": "demo-001",
+    "timestamp": "2025-10-15T00:00:00Z",
+    "source": "autopent-bench"
+  },
+  "hosts": [
+    {
+      "host": "10.0.0.2",
+      "ip": "10.0.0.2",
+      "os": "Linux",
+      "tags": ["web", "demo"]
+    },
+    {
+      "host": "10.0.0.3",
+      "ip": "10.0.0.3",
+      "os": "Windows Server",
+      "tags": ["dc", "ldap"]
+    }
+  ],
+  "endpoints": [
+    {
+      "host": "10.0.0.2",
+      "path": "/",
+      "method": "GET",
+      "title": "Main Landing Page"
+    },
+    {
+      "host": "10.0.0.2",
+      "path": "/login",
+      "method": "POST",
+      "title": "User Login Portal"
+    },
+    {
+      "host": "10.0.0.3",
+      "path": "/admin",
+      "method": "GET",
+      "title": "Admin Panel"
+    }
+  ],
+  "services": [
+    {
+      "host": "10.0.0.3",
+      "name": "ldap",
+      "port": 389,
+      "protocol": "tcp"
+    },
+    {
+      "host": "10.0.0.3",
+      "name": "msrpc",
+      "port": 135,
+      "protocol": "tcp"
+    }
+  ]
+}

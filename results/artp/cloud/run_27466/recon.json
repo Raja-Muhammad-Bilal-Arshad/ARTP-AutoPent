@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "generated_at": "2025-12-07T09:37:52Z",
+    "tool": "AutoPENT Cloud Recon v2.0 (God Mode)",
+    "target_endpoint": "http://localhost:4566"
+  },
+  "s3_buckets": [],
+  "iam_identities": {
+    "users": [],
+    "roles": []
+  },
+  "lambda_functions": [],
+  "secrets": [],
+  "apis": []
+}
