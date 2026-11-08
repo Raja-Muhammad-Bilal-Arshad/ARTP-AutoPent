@@ -1,8 +1,8 @@
-# ARTP PoC — Proof of Concept for the paper's claims (simulation-only)
+# ARTP PoC : Proof of Concept for the paper's claims (simulation-only)
 
 **Package:** `poc/` v1.0.0 · **Run it:** `./run_poc.sh` (or `python3 -m poc --help`)
 **Status:** every number in this document was produced by the `poc/` code in this
-repository on 2026-11-08 (`results/poc/` artifacts are committed) — nothing here
+repository on 2026-11-08 (`results/poc/` artifacts are committed) : nothing here
 is copied from the paper's tables; the paper's stale numbers should be replaced by these.
 
 ---
@@ -14,9 +14,9 @@ framework described in the paper actually exists and behaves as claimed, in a
 form an independent reader can execute in minutes. For a safety-conscious
 red-team planner this is **not** an exploit kit:
 
-> **It is a demonstration of the safety automation loop** —
+> **It is a demonstration of the safety automation loop** :
 > planner → verifier → human approval gate → isolated simulated execution →
-> metrics — every stage of which the editor can open, re-run, and check.
+> metrics : every stage of which the editor can open, re-run, and check.
 
 * **Simulation-only.** No exploit payloads, no live network activity, no Docker
   required. Scenario states are deterministic sandbox graphs baked into
@@ -27,7 +27,7 @@ red-team planner this is **not** an exploit kit:
   seeds).
 * **Process-isolated.** Every engagement executes inside its own freshly
   spawned child process (`python3 -m poc.rpc --seed N`) driven over
-  **line-delimited JSON-RPC 2.0** on stdio (`poc/rpc.py`) — the paper's
+  **line-delimited JSON-RPC 2.0** on stdio (`poc/rpc.py`) : the paper's
   "strict process isolation by JSON-RPC" claim.
 * **Non-bypassable approval path.** Steps with impact ≥ `requires_approval`
   are *held*; without an approval decision (`scripted-standard`,
@@ -44,14 +44,14 @@ red-team planner this is **not** an exploit kit:
 | MITRE ATT&CK technique mapping (3.2) | `poc/schema.py::ATTACK_TECHNIQUES` (17 techniques incl. T1003.006 DCSync, T1558.003 Kerberoasting, T1566.005) | selftest 1 |
 | Blocklists ("destructive patterns denied at plan time") | `poc/schema.py::BLOCKLIST_PATTERNS` + `validate_step` | selftest 1 |
 | Attack-surface graph G=(V,E); Coverage = \|V_comp\|/\|V_total\| (Eq.3) | `poc/state.py::Surface` / `poc/metrics.py::coverage` | selftest 3 |
-| SMT-style plan feasibility verifier (3.3) | `poc/verifier.py::verify_plan` — z3 if installed, else a documented pure-Python equivalent (BFS prefix-reachability + stealth-budget arithmetic; engine label reported in `verifier.json`) | selftest 2; look at `results/poc/web/full/seed-0001/verifier.json` |
+| SMT-style plan feasibility verifier (3.3) | `poc/verifier.py::verify_plan` : z3 if installed, else a documented pure-Python equivalent (BFS prefix-reachability + stealth-budget arithmetic; engine label reported in `verifier.json`) | selftest 2; look at `results/poc/web/full/seed-0001/verifier.json` |
 | Scope / credential-rule / budget enforcement | `poc/verifier.py` (checks 2–5) | selftest 2 |
 | Human-in-the-loop approval gate, not bypassable (3.3) | `poc/hitl.py::ApprovalLedger`; holds issued by `poc/verifier.py`; tokens = `HOLD-<step>-<hash8>` | selftest 4; `results/poc/demo/ad/approvals.jsonl` |
 | JSON-RPC process isolation (4.1) | `poc/rpc.py` (`RPCClient` spawns `python3 -m poc.rpc --seed N` per session) | selftest 5; each run's `exec_trace.json::session` |
 | Seeded PRNG determinism (4.1) | `poc/planner.py`, `poc/executor.py` (independent `Random(seed)` streams) | selftest 6 |
-| CVSS-based exploitation probability (4.1) | `poc/executor.py::p_true` — `p = 0.3 + 0.06·CVSS` | selftest 5 (inspect `p_true`) |
+| CVSS-based exploitation probability (4.1) | `poc/executor.py::p_true` : `p = 0.3 + 0.06·CVSS` | selftest 5 (inspect `p_true`) |
 | Observation noise ϵ = 0.05 (4.1) | `poc/executor.py` (`p_obs = clip(p_true ± U(0,0.05) total band)`, `epsilon` field per step) | `exec_trace.json::p_obs` vs `p_true` |
-| Eq.3 Coverage, Eq.4/11 Ep=T_opt/T_obs, Eq.5 Safety=1−unsafe/T, Eq.6 Stealth=1−mean D(a_t) | `poc/metrics.py` — one implementation (the audit's "three divergent legacy implementations" consolidated) | `results/poc/<sc>/<cfg>/seed-XXXX/metrics.json` |
+| Eq.3 Coverage, Eq.4/11 Ep=T_opt/T_obs, Eq.5 Safety=1−unsafe/T, Eq.6 Stealth=1−mean D(a_t) | `poc/metrics.py` : one implementation (the audit's "three divergent legacy implementations" consolidated) | `results/poc/<sc>/<cfg>/seed-XXXX/metrics.json` |
 | Detector model D(a_t) (Eq.6) | `poc/executor.py::_d_score` (+ cloud MTTD / det-rate telemetry for Fig.3) | selftest; `exec_trace.json::d_score` |
 | Eq.7/8 mean, σ, CI95 = µ ± 1.96·σ/√N; Eq.9 R=α(1−Sf)+β(1−St)+γ(1−C), α=β=γ=⅓ | `poc/metrics.py::mean_sd_ci / summarize / composite_r` | `results/poc/summary.json`, `table2.csv` |
 | Welch's t-test (Table 2) with no SciPy | `poc/metrics.py` (`welch_test`, incomplete-beta continued fractions) | selftest 7, tests/test_poc.py |
@@ -91,8 +91,8 @@ in `results/poc/table2.csv`. **Lower R is better** (Eq. 9 is a *penalty*).
 | unconstrained | 0.4875 | 0.351 | 0.389 | 0.639 | 0.495 | 0.77 |
 | baseline_random_walk | 0.412 | 0.367 | 0.928 | 0.775 | 0.295 | 0.37 |
 
-Welch tests vs full: composite R — without_verifier p≈0, unconstrained p≈0,
-baseline p=0.0062; safety — p≈0 / p≈0 / p=5.7e-05.
+Welch tests vs full: composite R : without_verifier p≈0, unconstrained p≈0,
+baseline p=0.0062; safety : p≈0 / p≈0 / p=5.7e-05.
 
 ### Active Directory (the 4-hop kill-chain claim)
 
@@ -104,9 +104,9 @@ baseline p=0.0062; safety — p≈0 / p≈0 / p=5.7e-05.
 | baseline_random_walk | 0.095 | 0.411 | 1.000 | 0.369 | 0.47 |
 
 * The full framework attains the DC-01 objective in **28/30 runs (0.93)** vs
-  **14/30 (0.47)** for the random walk — the *depth* (kill-chain completion)
+  **14/30 (0.47)** for the random walk : the *depth* (kill-chain completion)
   that Sec. 4.4 is about. The random walker often *stumbles* across more
-  read-only nodes (coverage breadth 0.095 ≥ 0.085) — with Eq.3 defined as
+  read-only nodes (coverage breadth 0.095 ≥ 0.085) : with Eq.3 defined as
   breadth over V_total, and Eq.9 rewarding breadth, a wandering walker can win
   R on this single scenario; that sensitivity is a property of the metric, and
   it is one of the honest findings this PoC surfaces.
@@ -143,7 +143,7 @@ should be reported as 17% (or the paper must change its threat model).
 | AD Ep "0.85, self-reported" | **0.800 computed** (T_obs incl. survey steps) |
 | AD chain success "100%" | **0.93** (28/30) vs random walk **0.47** (14/30) |
 | Cloud exfiltration 73.3% | **0.17** (5/30) under the white-team termination model |
-| CloudTrail detection mean 0.117 | **full: 0.286 (σ 0.195)**, ablations 0.326, walk 0.158 (`detection_rate` row in `table2.csv`) — lower ≈ stealthier; the framework trades a small detection-rate increase for scope-guaranteed probes |
+| CloudTrail detection mean 0.117 | **full: 0.286 (σ 0.195)**, ablations 0.326, walk 0.158 (`detection_rate` row in `table2.csv`) : lower ≈ stealthier; the framework trades a small detection-rate increase for scope-guaranteed probes |
 | Random-walk baseline "fails 100%" | **measured 0.37–0.47 objective completion** across scenarios (still ≈2× below full everywhere it matters, and significantly worse on Ep/R in web & cloud) |
 
 These are the numbers the editor asked to see *demonstrated*: they are not
@@ -189,8 +189,8 @@ python3 -m poc run-poc --scenario ad --config full --seed 1 --interactive
    engine; with `pip install z3-solver` the same checks are re-verified by z3
    (engine field in `verifier.json` reflects which ran).
 5. **Simulation model.** Success model, detector D(a) and dt are documented
-   simulators, not measured field data; changing seeds only — never the
-   story — is the point of a PoC.
+   simulators, not measured field data; changing seeds only : never the
+   story : is the point of a PoC.
 
 ## 8. Reproduction command summary
 
