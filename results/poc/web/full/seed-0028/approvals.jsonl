@@ -1,0 +1,2 @@
+{"action": "escalate_simulated", "decision": "approved", "impact": "high", "operator": "scripted-standard", "plan": "POC_WEB_full_seed28", "reason": "scripted-standard operator", "step_id": 4, "technique": "T1078", "token": "HOLD-4-ea4c3be6", "ts": "2026-11-08T13:10:30"}
+{"action": "exfiltrate_simulated", "decision": "approved", "impact": "critical", "operator": "scripted-standard", "plan": "POC_WEB_full_seed28", "reason": "scripted-standard operator", "step_id": 7, "technique": "T1567", "token": "HOLD-7-00463ffb", "ts": "2026-11-08T13:10:30"}

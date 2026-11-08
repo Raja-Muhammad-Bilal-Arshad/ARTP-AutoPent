@@ -1,0 +1,149 @@
+{
+  "ground_truth": {
+    "objective": "Exfiltrate cloud secrets via over-privileged role",
+    "objective_node": "secret:api-prod-key",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "bucket:financial-backups-prod",
+      "bucket:dev-tfstate",
+      "role:deploy-bot",
+      "fn:invoicer"
+    ]
+  },
+  "objective_node": "secret:api-prod-key",
+  "plan": {
+    "L_opt": 4,
+    "config": "baseline_random_walk",
+    "ground_truth": {
+      "objective": "Exfiltrate cloud secrets via over-privileged role",
+      "objective_node": "secret:api-prod-key",
+      "optimal_path_length": 4,
+      "recon_targets": [
+        "bucket:financial-backups-prod",
+        "bucket:dev-tfstate",
+        "role:deploy-bot",
+        "fn:invoicer"
+      ]
+    },
+    "objective_node": "secret:api-prod-key",
+    "plan_name": "POC_CLOUD_baseline_random_walk_seed8",
+    "scenario": "cloud",
+    "seed": 8,
+    "steps": [
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'public-read' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 1,
+        "target": {
+          "id": "bucket:financial-backups-prod",
+          "type": "bucket"
+        },
+        "technique": "T1580"
+      },
+      {
+        "action": "check_creds",
+        "cvss": 8.5,
+        "impact": "medium",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'credential-extract' (no graph-aware priority).",
+        "stealth_cost": 0.3,
+        "step_id": 2,
+        "target": {
+          "id": "role:deploy-bot",
+          "type": "role"
+        },
+        "technique": "T1552.001"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 9.0,
+        "impact": "critical",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'attach-admin' (no graph-aware priority).",
+        "stealth_cost": 0.6,
+        "step_id": 3,
+        "target": {
+          "id": "data:all_loot",
+          "type": "data"
+        },
+        "technique": "T1098"
+      },
+      {
+        "action": "exfiltrate_simulated",
+        "cvss": 9.3,
+        "impact": "critical",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'exfil-target' (no graph-aware priority).",
+        "stealth_cost": 0.7,
+        "step_id": 4,
+        "target": {
+          "id": "secret:api-prod-key",
+          "type": "secret"
+        },
+        "technique": "T1567"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'public-read' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 1,
+      "target": {
+        "id": "bucket:financial-backups-prod",
+        "type": "bucket"
+      },
+      "technique": "T1580"
+    },
+    {
+      "action": "check_creds",
+      "cvss": 8.5,
+      "impact": "medium",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'credential-extract' (no graph-aware priority).",
+      "stealth_cost": 0.3,
+      "step_id": 2,
+      "target": {
+        "id": "role:deploy-bot",
+        "type": "role"
+      },
+      "technique": "T1552.001"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 9.0,
+      "impact": "critical",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'attach-admin' (no graph-aware priority).",
+      "stealth_cost": 0.6,
+      "step_id": 3,
+      "target": {
+        "id": "data:all_loot",
+        "type": "data"
+      },
+      "technique": "T1098"
+    },
+    {
+      "action": "exfiltrate_simulated",
+      "cvss": 9.3,
+      "impact": "critical",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'exfil-target' (no graph-aware priority).",
+      "stealth_cost": 0.7,
+      "step_id": 4,
+      "target": {
+        "id": "secret:api-prod-key",
+        "type": "secret"
+      },
+      "technique": "T1567"
+    }
+  ]
+}

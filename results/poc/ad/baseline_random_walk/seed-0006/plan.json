@@ -1,0 +1,217 @@
+{
+  "ground_truth": {
+    "chain": [
+      "Phishing",
+      "Kerberoasting",
+      "AdminTo",
+      "DCSync"
+    ],
+    "objective": "Domain Dominance (DCSync against DC-01)",
+    "objective_node": "DC-01",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "u_amy_rhodes",
+      "svc_sql",
+      "WKST-01",
+      "DC-01"
+    ]
+  },
+  "objective_node": "DC-01",
+  "plan": {
+    "L_opt": 4,
+    "config": "baseline_random_walk",
+    "ground_truth": {
+      "chain": [
+        "Phishing",
+        "Kerberoasting",
+        "AdminTo",
+        "DCSync"
+      ],
+      "objective": "Domain Dominance (DCSync against DC-01)",
+      "objective_node": "DC-01",
+      "optimal_path_length": 4,
+      "recon_targets": [
+        "u_amy_rhodes",
+        "svc_sql",
+        "WKST-01",
+        "DC-01"
+      ]
+    },
+    "objective_node": "DC-01",
+    "plan_name": "POC_AD_baseline_random_walk_seed6",
+    "scenario": "ad",
+    "seed": 6,
+    "steps": [
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 3.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'phish' (no graph-aware priority).",
+        "stealth_cost": 0.3,
+        "step_id": 1,
+        "target": {
+          "id": "u_amy_rhodes",
+          "type": "user"
+        },
+        "technique": "T1566.005"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'manages' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 2,
+        "target": {
+          "id": "u03",
+          "type": "user"
+        },
+        "technique": "T1087"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'manages' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 3,
+        "target": {
+          "id": "u14",
+          "type": "user"
+        },
+        "technique": "T1087"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'memberOf' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 4,
+        "target": {
+          "id": "GRP_HELPDESK",
+          "type": "group"
+        },
+        "technique": "T1087"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'memberOf' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 5,
+        "target": {
+          "id": "GRP_DOMAIN_ADMINS",
+          "type": "group"
+        },
+        "technique": "T1087"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 8.0,
+        "impact": "high",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'adminTo' (no graph-aware priority).",
+        "stealth_cost": 0.5,
+        "step_id": 6,
+        "target": {
+          "id": "DC-01",
+          "type": "computer"
+        },
+        "technique": "T1078"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 3.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'phish' (no graph-aware priority).",
+      "stealth_cost": 0.3,
+      "step_id": 1,
+      "target": {
+        "id": "u_amy_rhodes",
+        "type": "user"
+      },
+      "technique": "T1566.005"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'manages' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 2,
+      "target": {
+        "id": "u03",
+        "type": "user"
+      },
+      "technique": "T1087"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'manages' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 3,
+      "target": {
+        "id": "u14",
+        "type": "user"
+      },
+      "technique": "T1087"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'memberOf' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 4,
+      "target": {
+        "id": "GRP_HELPDESK",
+        "type": "group"
+      },
+      "technique": "T1087"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'memberOf' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 5,
+      "target": {
+        "id": "GRP_DOMAIN_ADMINS",
+        "type": "group"
+      },
+      "technique": "T1087"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 8.0,
+      "impact": "high",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'adminTo' (no graph-aware priority).",
+      "stealth_cost": 0.5,
+      "step_id": 6,
+      "target": {
+        "id": "DC-01",
+        "type": "computer"
+      },
+      "technique": "T1078"
+    }
+  ]
+}

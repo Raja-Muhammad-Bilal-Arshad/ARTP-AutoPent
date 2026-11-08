@@ -1,0 +1,67 @@
+{
+  "blocked": [],
+  "checks": [
+    {
+      "action": "attempt_exploit_simulated",
+      "cumulative_stealth": 0.3,
+      "impact": "low",
+      "reachable": true,
+      "step_id": 1,
+      "target": "u_amy_rhodes",
+      "technique": "T1566.005",
+      "violations": []
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cumulative_stealth": 0.7,
+      "impact": "medium",
+      "reachable": true,
+      "step_id": 2,
+      "target": "svc_sql",
+      "technique": "T1558.003",
+      "violations": []
+    },
+    {
+      "action": "escalate_simulated",
+      "cumulative_stealth": 1.2,
+      "impact": "high",
+      "reachable": true,
+      "step_id": 3,
+      "target": "WKST-01",
+      "technique": "T1078",
+      "violations": []
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cumulative_stealth": 2.0,
+      "impact": "high",
+      "reachable": true,
+      "step_id": 4,
+      "target": "DC-01",
+      "technique": "T1003.006",
+      "violations": []
+    }
+  ],
+  "enabled": true,
+  "engine": "python-bfs-smt-style",
+  "holds": [
+    {
+      "action": "escalate_simulated",
+      "impact": "high",
+      "step_id": 3,
+      "technique": "T1078",
+      "token": "HOLD-3-4b217e8a"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "impact": "high",
+      "step_id": 4,
+      "technique": "T1003.006",
+      "token": "HOLD-4-025edd81"
+    }
+  ],
+  "n_steps_in": 4,
+  "n_steps_out": 4,
+  "z3_available": false,
+  "z3_verdict": null
+}

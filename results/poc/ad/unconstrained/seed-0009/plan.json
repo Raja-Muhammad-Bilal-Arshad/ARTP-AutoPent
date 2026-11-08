@@ -1,0 +1,385 @@
+{
+  "ground_truth": {
+    "chain": [
+      "Phishing",
+      "Kerberoasting",
+      "AdminTo",
+      "DCSync"
+    ],
+    "objective": "Domain Dominance (DCSync against DC-01)",
+    "objective_node": "DC-01",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "u_amy_rhodes",
+      "svc_sql",
+      "WKST-01",
+      "DC-01"
+    ]
+  },
+  "objective_node": "DC-01",
+  "plan": {
+    "L_opt": 4,
+    "config": "unconstrained",
+    "ground_truth": {
+      "chain": [
+        "Phishing",
+        "Kerberoasting",
+        "AdminTo",
+        "DCSync"
+      ],
+      "objective": "Domain Dominance (DCSync against DC-01)",
+      "objective_node": "DC-01",
+      "optimal_path_length": 4,
+      "recon_targets": [
+        "u_amy_rhodes",
+        "svc_sql",
+        "WKST-01",
+        "DC-01"
+      ]
+    },
+    "objective_node": "DC-01",
+    "plan_name": "POC_AD_unconstrained_seed9",
+    "scenario": "ad",
+    "seed": 9,
+    "steps": [
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 3.0,
+        "impact": "low",
+        "phase": "core",
+        "rationale": "Follows relation 'phish' from ATTACKER to u_amy_rhodes using technique T1566.005 (Phishing: Spearphishing Link) backed by graph-distance evidence.",
+        "stealth_cost": 0.3,
+        "step_id": 1,
+        "target": {
+          "id": "u_amy_rhodes",
+          "type": "user"
+        },
+        "technique": "T1566.005"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 7.5,
+        "impact": "medium",
+        "phase": "core",
+        "rationale": "Follows relation 'kerberoastable' from u_amy_rhodes to svc_sql using technique T1558.003 (Kerberoasting) backed by graph-distance evidence.",
+        "stealth_cost": 0.4,
+        "step_id": 2,
+        "target": {
+          "id": "svc_sql",
+          "type": "service-account"
+        },
+        "technique": "T1558.003"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "guard",
+        "rationale": "Lateral-movement survey: confirm exposure before the higher-impact step on the same asset.",
+        "stealth_cost": 0.2,
+        "step_id": 3,
+        "target": {
+          "id": "WKST-01",
+          "type": "computer"
+        },
+        "technique": "T1018"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 8.0,
+        "impact": "high",
+        "phase": "core",
+        "rationale": "Follows relation 'adminTo' from svc_sql to WKST-01 using technique T1078 (Valid Accounts (local admin)) backed by graph-distance evidence.",
+        "stealth_cost": 0.5,
+        "step_id": 4,
+        "target": {
+          "id": "WKST-01",
+          "type": "computer"
+        },
+        "technique": "T1078"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 8.5,
+        "impact": "high",
+        "phase": "core",
+        "rationale": "Follows relation 'dcsync' from WKST-01 to DC-01 using technique T1003.006 (DCSync) backed by graph-distance evidence.",
+        "stealth_cost": 0.8,
+        "step_id": 5,
+        "target": {
+          "id": "DC-01",
+          "type": "computer"
+        },
+        "technique": "T1003.006"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 6,
+        "target": {
+          "id": "shadow:asset-1",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 7,
+        "target": {
+          "id": "shadow:asset-2",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 8,
+        "target": {
+          "id": "shadow:asset-3",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 9,
+        "target": {
+          "id": "shadow:asset-4",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 10.0,
+        "impact": "critical",
+        "phase": "aggressive",
+        "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+        "stealth_cost": 1.5,
+        "step_id": 10,
+        "target": {
+          "id": "shadow:asset-b1",
+          "type": "host"
+        },
+        "technique": "T1059"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 10.0,
+        "impact": "critical",
+        "phase": "aggressive",
+        "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+        "stealth_cost": 1.5,
+        "step_id": 11,
+        "target": {
+          "id": "shadow:asset-b2",
+          "type": "host"
+        },
+        "technique": "T1059"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 10.0,
+        "impact": "critical",
+        "phase": "aggressive",
+        "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+        "stealth_cost": 1.5,
+        "step_id": 12,
+        "target": {
+          "id": "shadow:asset-b3",
+          "type": "host"
+        },
+        "technique": "T1059"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 3.0,
+      "impact": "low",
+      "phase": "core",
+      "rationale": "Follows relation 'phish' from ATTACKER to u_amy_rhodes using technique T1566.005 (Phishing: Spearphishing Link) backed by graph-distance evidence.",
+      "stealth_cost": 0.3,
+      "step_id": 1,
+      "target": {
+        "id": "u_amy_rhodes",
+        "type": "user"
+      },
+      "technique": "T1566.005"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 7.5,
+      "impact": "medium",
+      "phase": "core",
+      "rationale": "Follows relation 'kerberoastable' from u_amy_rhodes to svc_sql using technique T1558.003 (Kerberoasting) backed by graph-distance evidence.",
+      "stealth_cost": 0.4,
+      "step_id": 2,
+      "target": {
+        "id": "svc_sql",
+        "type": "service-account"
+      },
+      "technique": "T1558.003"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "guard",
+      "rationale": "Lateral-movement survey: confirm exposure before the higher-impact step on the same asset.",
+      "stealth_cost": 0.2,
+      "step_id": 3,
+      "target": {
+        "id": "WKST-01",
+        "type": "computer"
+      },
+      "technique": "T1018"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 8.0,
+      "impact": "high",
+      "phase": "core",
+      "rationale": "Follows relation 'adminTo' from svc_sql to WKST-01 using technique T1078 (Valid Accounts (local admin)) backed by graph-distance evidence.",
+      "stealth_cost": 0.5,
+      "step_id": 4,
+      "target": {
+        "id": "WKST-01",
+        "type": "computer"
+      },
+      "technique": "T1078"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 8.5,
+      "impact": "high",
+      "phase": "core",
+      "rationale": "Follows relation 'dcsync' from WKST-01 to DC-01 using technique T1003.006 (DCSync) backed by graph-distance evidence.",
+      "stealth_cost": 0.8,
+      "step_id": 5,
+      "target": {
+        "id": "DC-01",
+        "type": "computer"
+      },
+      "technique": "T1003.006"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 6,
+      "target": {
+        "id": "shadow:asset-1",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 7,
+      "target": {
+        "id": "shadow:asset-2",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 8,
+      "target": {
+        "id": "shadow:asset-3",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 9,
+      "target": {
+        "id": "shadow:asset-4",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 10.0,
+      "impact": "critical",
+      "phase": "aggressive",
+      "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+      "stealth_cost": 1.5,
+      "step_id": 10,
+      "target": {
+        "id": "shadow:asset-b1",
+        "type": "host"
+      },
+      "technique": "T1059"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 10.0,
+      "impact": "critical",
+      "phase": "aggressive",
+      "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+      "stealth_cost": 1.5,
+      "step_id": 11,
+      "target": {
+        "id": "shadow:asset-b2",
+        "type": "host"
+      },
+      "technique": "T1059"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 10.0,
+      "impact": "critical",
+      "phase": "aggressive",
+      "rationale": "Over-aggressive probing: high-impact destructive variant that the verifier would normally deny; no approval was sought.",
+      "stealth_cost": 1.5,
+      "step_id": 12,
+      "target": {
+        "id": "shadow:asset-b3",
+        "type": "host"
+      },
+      "technique": "T1059"
+    }
+  ]
+}

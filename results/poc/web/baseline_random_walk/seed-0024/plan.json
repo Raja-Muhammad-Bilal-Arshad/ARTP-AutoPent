@@ -1,0 +1,207 @@
+{
+  "ground_truth": {
+    "objective": "Dump users table via orders-db chain",
+    "objective_node": "data:users-db",
+    "optimal_path_length": 6,
+    "recon_targets": [
+      "ep:juice:/",
+      "ep:juice:/api",
+      "ep:web2:/login",
+      "ep:web2:/admin",
+      "ep:micro:/data/export"
+    ]
+  },
+  "objective_node": "data:users-db",
+  "plan": {
+    "L_opt": 6,
+    "config": "baseline_random_walk",
+    "ground_truth": {
+      "objective": "Dump users table via orders-db chain",
+      "objective_node": "data:users-db",
+      "optimal_path_length": 6,
+      "recon_targets": [
+        "ep:juice:/",
+        "ep:juice:/api",
+        "ep:web2:/login",
+        "ep:web2:/admin",
+        "ep:micro:/data/export"
+      ]
+    },
+    "objective_node": "data:users-db",
+    "plan_name": "POC_WEB_baseline_random_walk_seed24",
+    "scenario": "web",
+    "seed": 24,
+    "steps": [
+      {
+        "action": "crawl",
+        "cvss": 3.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'http' (no graph-aware priority).",
+        "stealth_cost": 0.1,
+        "step_id": 1,
+        "target": {
+          "id": "ep:web2:/login",
+          "type": "endpoint"
+        },
+        "technique": "T1046"
+      },
+      {
+        "action": "check_creds",
+        "cvss": 7.5,
+        "impact": "medium",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'default-creds' (no graph-aware priority).",
+        "stealth_cost": 0.3,
+        "step_id": 2,
+        "target": {
+          "id": "acct:admin@web2",
+          "type": "account"
+        },
+        "technique": "T1110"
+      },
+      {
+        "action": "escalate_simulated",
+        "cvss": 8.0,
+        "impact": "high",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'adminTo' (no graph-aware priority).",
+        "stealth_cost": 0.5,
+        "step_id": 3,
+        "target": {
+          "id": "ep:web2:/admin",
+          "type": "endpoint"
+        },
+        "technique": "T1078"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 8.0,
+        "impact": "medium",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'rce' (no graph-aware priority).",
+        "stealth_cost": 0.4,
+        "step_id": 4,
+        "target": {
+          "id": "web2",
+          "type": "host"
+        },
+        "technique": "T1210"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'internal-service' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 5,
+        "target": {
+          "id": "ep:micro:/data/export",
+          "type": "endpoint"
+        },
+        "technique": "T1046"
+      },
+      {
+        "action": "exfiltrate_simulated",
+        "cvss": 9.3,
+        "impact": "critical",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'exfil-target' (no graph-aware priority).",
+        "stealth_cost": 0.7,
+        "step_id": 6,
+        "target": {
+          "id": "data:users-db",
+          "type": "data"
+        },
+        "technique": "T1567"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "crawl",
+      "cvss": 3.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'http' (no graph-aware priority).",
+      "stealth_cost": 0.1,
+      "step_id": 1,
+      "target": {
+        "id": "ep:web2:/login",
+        "type": "endpoint"
+      },
+      "technique": "T1046"
+    },
+    {
+      "action": "check_creds",
+      "cvss": 7.5,
+      "impact": "medium",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'default-creds' (no graph-aware priority).",
+      "stealth_cost": 0.3,
+      "step_id": 2,
+      "target": {
+        "id": "acct:admin@web2",
+        "type": "account"
+      },
+      "technique": "T1110"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 8.0,
+      "impact": "high",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'adminTo' (no graph-aware priority).",
+      "stealth_cost": 0.5,
+      "step_id": 3,
+      "target": {
+        "id": "ep:web2:/admin",
+        "type": "endpoint"
+      },
+      "technique": "T1078"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 8.0,
+      "impact": "medium",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'rce' (no graph-aware priority).",
+      "stealth_cost": 0.4,
+      "step_id": 4,
+      "target": {
+        "id": "web2",
+        "type": "host"
+      },
+      "technique": "T1210"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'internal-service' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 5,
+      "target": {
+        "id": "ep:micro:/data/export",
+        "type": "endpoint"
+      },
+      "technique": "T1046"
+    },
+    {
+      "action": "exfiltrate_simulated",
+      "cvss": 9.3,
+      "impact": "critical",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'exfil-target' (no graph-aware priority).",
+      "stealth_cost": 0.7,
+      "step_id": 6,
+      "target": {
+        "id": "data:users-db",
+        "type": "data"
+      },
+      "technique": "T1567"
+    }
+  ]
+}

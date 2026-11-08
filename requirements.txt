@@ -9,3 +9,8 @@ pyyaml
 scipy
 numpy
 networkx
+
+# z3-solver (optional, not installed here): the PoC verifier falls back to
+# its pure-Python BFS-based SMT-style engine when z3 is absent; installing
+# z3-solver upgrades the engine to genuine z3 SMT automatically.
+# z3-solver>=4.8

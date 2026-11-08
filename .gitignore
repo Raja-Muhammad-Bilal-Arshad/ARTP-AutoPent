@@ -17,3 +17,6 @@ __pycache__/
 Thumbs.db
 *.swp
 *.swo
+
+# Manuscript (kept out of source control by default; remove to commit)
+ARTP.pdf

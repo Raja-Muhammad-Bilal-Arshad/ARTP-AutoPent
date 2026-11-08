@@ -1,0 +1,97 @@
+{
+  "blocked": [],
+  "checks": [
+    {
+      "action": "crawl",
+      "cumulative_stealth": 0.1,
+      "impact": "low",
+      "reachable": true,
+      "step_id": 1,
+      "target": "ep:web2:/login",
+      "technique": "T1046",
+      "violations": []
+    },
+    {
+      "action": "check_creds",
+      "cumulative_stealth": 0.4,
+      "impact": "medium",
+      "reachable": true,
+      "step_id": 2,
+      "target": "acct:admin@web2",
+      "technique": "T1110",
+      "violations": []
+    },
+    {
+      "action": "enumerate",
+      "cumulative_stealth": 0.6,
+      "impact": "low",
+      "reachable": true,
+      "step_id": 3,
+      "target": "ep:web2:/admin",
+      "technique": "T1018",
+      "violations": []
+    },
+    {
+      "action": "escalate_simulated",
+      "cumulative_stealth": 1.1,
+      "impact": "high",
+      "reachable": true,
+      "step_id": 4,
+      "target": "ep:web2:/admin",
+      "technique": "T1078",
+      "violations": []
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cumulative_stealth": 1.5,
+      "impact": "medium",
+      "reachable": true,
+      "step_id": 5,
+      "target": "web2",
+      "technique": "T1210",
+      "violations": []
+    },
+    {
+      "action": "enumerate",
+      "cumulative_stealth": 1.7,
+      "impact": "low",
+      "reachable": true,
+      "step_id": 6,
+      "target": "ep:micro:/data/export",
+      "technique": "T1046",
+      "violations": []
+    },
+    {
+      "action": "exfiltrate_simulated",
+      "cumulative_stealth": 2.4,
+      "impact": "critical",
+      "reachable": true,
+      "step_id": 7,
+      "target": "data:users-db",
+      "technique": "T1567",
+      "violations": []
+    }
+  ],
+  "enabled": true,
+  "engine": "python-bfs-smt-style",
+  "holds": [
+    {
+      "action": "escalate_simulated",
+      "impact": "high",
+      "step_id": 4,
+      "technique": "T1078",
+      "token": "HOLD-4-ea4c3be6"
+    },
+    {
+      "action": "exfiltrate_simulated",
+      "impact": "critical",
+      "step_id": 7,
+      "technique": "T1567",
+      "token": "HOLD-7-00463ffb"
+    }
+  ],
+  "n_steps_in": 7,
+  "n_steps_out": 7,
+  "z3_available": false,
+  "z3_verdict": null
+}

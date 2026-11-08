@@ -1,0 +1,98 @@
+{
+  "session": {
+    "n_nodes": 7,
+    "policies": {
+      "credential_attempts_max": 3,
+      "max_impact": "high",
+      "requires_approval": "high",
+      "scope": "poc-sandbox",
+      "stealth_budget": 2.5
+    },
+    "scenario": "cloud",
+    "session": "poc-sim-968e2769"
+  },
+  "summary": {
+    "compromised": [
+      "ATTACKER",
+      "bucket:financial-backups-prod",
+      "role:deploy-bot"
+    ],
+    "detection_rate": 0.5,
+    "mttd_note": "sum of dt until first alert; None = no alert in simulation window",
+    "mttd_sim_seconds": 6.0,
+    "n_detected": 1,
+    "n_steps_executed": 2,
+    "n_steps_success": 2,
+    "scenario": "cloud",
+    "seed": 27,
+    "session": "poc-sim-968e2769",
+    "terminated": true
+  },
+  "trace": [
+    {
+      "action": "enumerate",
+      "compromised": "bucket:financial-backups-prod",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 1.0,
+      "p_true": 1.0,
+      "step_id": 1,
+      "success": true,
+      "target_id": "bucket:financial-backups-prod",
+      "technique": "T1580"
+    },
+    {
+      "action": "check_creds",
+      "compromised": "role:deploy-bot",
+      "cvss": 8.5,
+      "d_score": 0.315,
+      "detected": true,
+      "dt_sim_seconds": 4.0,
+      "epsilon": 0.05,
+      "impact": "medium",
+      "note": "credential surface exposed",
+      "p_obs": 0.4732,
+      "p_true": 0.5,
+      "step_id": 2,
+      "success": true,
+      "target_id": "role:deploy-bot",
+      "technique": "T1552.001",
+      "terminated_session": true
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 3
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 4
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 5
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 6
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 7
+    },
+    {
+      "reason": "session terminated after detection",
+      "skipped": true,
+      "step_id": 8
+    }
+  ]
+}

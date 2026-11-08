@@ -1,0 +1,65 @@
+{
+  "ground_truth": {
+    "objective": "Exfiltrate cloud secrets via over-privileged role",
+    "objective_node": "secret:api-prod-key",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "bucket:financial-backups-prod",
+      "bucket:dev-tfstate",
+      "role:deploy-bot",
+      "fn:invoicer"
+    ]
+  },
+  "objective_node": "secret:api-prod-key",
+  "plan": {
+    "L_opt": 4,
+    "config": "baseline_random_walk",
+    "ground_truth": {
+      "objective": "Exfiltrate cloud secrets via over-privileged role",
+      "objective_node": "secret:api-prod-key",
+      "optimal_path_length": 4,
+      "recon_targets": [
+        "bucket:financial-backups-prod",
+        "bucket:dev-tfstate",
+        "role:deploy-bot",
+        "fn:invoicer"
+      ]
+    },
+    "objective_node": "secret:api-prod-key",
+    "plan_name": "POC_CLOUD_baseline_random_walk_seed25",
+    "scenario": "cloud",
+    "seed": 25,
+    "steps": [
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'public-read' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 1,
+        "target": {
+          "id": "bucket:dev-tfstate",
+          "type": "bucket"
+        },
+        "technique": "T1580"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'public-read' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 1,
+      "target": {
+        "id": "bucket:dev-tfstate",
+        "type": "bucket"
+      },
+      "technique": "T1580"
+    }
+  ]
+}

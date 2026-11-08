@@ -1,0 +1,289 @@
+{
+  "ground_truth": {
+    "objective": "Exfiltrate cloud secrets via over-privileged role",
+    "objective_node": "secret:api-prod-key",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "bucket:financial-backups-prod",
+      "bucket:dev-tfstate",
+      "role:deploy-bot",
+      "fn:invoicer"
+    ]
+  },
+  "objective_node": "secret:api-prod-key",
+  "plan": {
+    "L_opt": 4,
+    "config": "without_verifier",
+    "ground_truth": {
+      "objective": "Exfiltrate cloud secrets via over-privileged role",
+      "objective_node": "secret:api-prod-key",
+      "optimal_path_length": 4,
+      "recon_targets": [
+        "bucket:financial-backups-prod",
+        "bucket:dev-tfstate",
+        "role:deploy-bot",
+        "fn:invoicer"
+      ]
+    },
+    "objective_node": "secret:api-prod-key",
+    "plan_name": "POC_CLOUD_without_verifier_seed14",
+    "scenario": "cloud",
+    "seed": 14,
+    "steps": [
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "core",
+        "rationale": "Follows relation 'public-read' from ATTACKER to bucket:financial-backups-prod using technique T1580 (Cloud Infrastructure Discovery) backed by graph-distance evidence.",
+        "stealth_cost": 0.2,
+        "step_id": 1,
+        "target": {
+          "id": "bucket:financial-backups-prod",
+          "type": "bucket"
+        },
+        "technique": "T1580"
+      },
+      {
+        "action": "check_creds",
+        "cvss": 8.5,
+        "impact": "medium",
+        "phase": "core",
+        "rationale": "Follows relation 'credential-extract' from bucket:financial-backups-prod to role:deploy-bot using technique T1552.001 (Unsecured Credentials (keys in bucket)) backed by graph-distance evidence.",
+        "stealth_cost": 0.3,
+        "step_id": 2,
+        "target": {
+          "id": "role:deploy-bot",
+          "type": "role"
+        },
+        "technique": "T1552.001"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 4.0,
+        "impact": "low",
+        "phase": "guard",
+        "rationale": "Lateral-movement survey: confirm exposure before the higher-impact step on the same asset.",
+        "stealth_cost": 0.2,
+        "step_id": 3,
+        "target": {
+          "id": "fn:invoicer",
+          "type": "function"
+        },
+        "technique": "T1018"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 8.5,
+        "impact": "high",
+        "phase": "core",
+        "rationale": "Follows relation 'assume-role' from role:deploy-bot to fn:invoicer using technique T1550 (Alternate Authentication Material (AssumeRole)) backed by graph-distance evidence.",
+        "stealth_cost": 0.4,
+        "step_id": 4,
+        "target": {
+          "id": "fn:invoicer",
+          "type": "function"
+        },
+        "technique": "T1550"
+      },
+      {
+        "action": "check_creds",
+        "cvss": 9.0,
+        "impact": "medium",
+        "phase": "core",
+        "rationale": "Follows relation 'env-secret' from fn:invoicer to secret:api-prod-key using technique T1552.001 (Unsecured Credentials (keys in bucket)) backed by graph-distance evidence.",
+        "stealth_cost": 0.3,
+        "step_id": 5,
+        "target": {
+          "id": "secret:api-prod-key",
+          "type": "secret"
+        },
+        "technique": "T1552.001"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 6,
+        "target": {
+          "id": "shadow:asset-1",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 7,
+        "target": {
+          "id": "shadow:asset-2",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 8,
+        "target": {
+          "id": "shadow:asset-3",
+          "type": "host"
+        },
+        "technique": "T1190"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 6.5,
+        "impact": "medium",
+        "phase": "drift",
+        "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+        "stealth_cost": 0.4,
+        "step_id": 9,
+        "target": {
+          "id": "shadow:asset-4",
+          "type": "host"
+        },
+        "technique": "T1190"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "core",
+      "rationale": "Follows relation 'public-read' from ATTACKER to bucket:financial-backups-prod using technique T1580 (Cloud Infrastructure Discovery) backed by graph-distance evidence.",
+      "stealth_cost": 0.2,
+      "step_id": 1,
+      "target": {
+        "id": "bucket:financial-backups-prod",
+        "type": "bucket"
+      },
+      "technique": "T1580"
+    },
+    {
+      "action": "check_creds",
+      "cvss": 8.5,
+      "impact": "medium",
+      "phase": "core",
+      "rationale": "Follows relation 'credential-extract' from bucket:financial-backups-prod to role:deploy-bot using technique T1552.001 (Unsecured Credentials (keys in bucket)) backed by graph-distance evidence.",
+      "stealth_cost": 0.3,
+      "step_id": 2,
+      "target": {
+        "id": "role:deploy-bot",
+        "type": "role"
+      },
+      "technique": "T1552.001"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 4.0,
+      "impact": "low",
+      "phase": "guard",
+      "rationale": "Lateral-movement survey: confirm exposure before the higher-impact step on the same asset.",
+      "stealth_cost": 0.2,
+      "step_id": 3,
+      "target": {
+        "id": "fn:invoicer",
+        "type": "function"
+      },
+      "technique": "T1018"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 8.5,
+      "impact": "high",
+      "phase": "core",
+      "rationale": "Follows relation 'assume-role' from role:deploy-bot to fn:invoicer using technique T1550 (Alternate Authentication Material (AssumeRole)) backed by graph-distance evidence.",
+      "stealth_cost": 0.4,
+      "step_id": 4,
+      "target": {
+        "id": "fn:invoicer",
+        "type": "function"
+      },
+      "technique": "T1550"
+    },
+    {
+      "action": "check_creds",
+      "cvss": 9.0,
+      "impact": "medium",
+      "phase": "core",
+      "rationale": "Follows relation 'env-secret' from fn:invoicer to secret:api-prod-key using technique T1552.001 (Unsecured Credentials (keys in bucket)) backed by graph-distance evidence.",
+      "stealth_cost": 0.3,
+      "step_id": 5,
+      "target": {
+        "id": "secret:api-prod-key",
+        "type": "secret"
+      },
+      "technique": "T1552.001"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 6,
+      "target": {
+        "id": "shadow:asset-1",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 7,
+      "target": {
+        "id": "shadow:asset-2",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 8,
+      "target": {
+        "id": "shadow:asset-3",
+        "type": "host"
+      },
+      "technique": "T1190"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 6.5,
+      "impact": "medium",
+      "phase": "drift",
+      "rationale": "Exploration drift: noisy probe against an asset outside the declared scope; wastes the error budget (paper failure mode 1).",
+      "stealth_cost": 0.4,
+      "step_id": 9,
+      "target": {
+        "id": "shadow:asset-4",
+        "type": "host"
+      },
+      "technique": "T1190"
+    }
+  ]
+}

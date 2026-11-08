@@ -1,0 +1,49 @@
+{
+  "session": {
+    "n_nodes": 7,
+    "policies": {
+      "credential_attempts_max": 3,
+      "max_impact": "high",
+      "requires_approval": "high",
+      "scope": "poc-sandbox",
+      "stealth_budget": 2.5
+    },
+    "scenario": "cloud",
+    "session": "poc-sim-08ec8ab0"
+  },
+  "summary": {
+    "compromised": [
+      "ATTACKER",
+      "bucket:dev-tfstate"
+    ],
+    "detection_rate": 0.0,
+    "mttd_note": "sum of dt until first alert; None = no alert in simulation window",
+    "mttd_sim_seconds": null,
+    "n_detected": 0,
+    "n_steps_executed": 1,
+    "n_steps_success": 1,
+    "scenario": "cloud",
+    "seed": 30,
+    "session": "poc-sim-08ec8ab0",
+    "terminated": false
+  },
+  "trace": [
+    {
+      "action": "enumerate",
+      "compromised": "bucket:dev-tfstate",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 1.0,
+      "p_true": 1.0,
+      "step_id": 1,
+      "success": true,
+      "target_id": "bucket:dev-tfstate",
+      "technique": "T1580"
+    }
+  ]
+}

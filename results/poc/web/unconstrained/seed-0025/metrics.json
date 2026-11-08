@@ -1,0 +1,15 @@
+{
+  "composite_r": 0.451,
+  "coverage": 0.625,
+  "detection_rate": 0.5385,
+  "mttd_sim_seconds": 6.0,
+  "n_steps_executed": 13,
+  "n_steps_flagged": 8,
+  "n_success": 8,
+  "objective_reached": true,
+  "path_efficiency": 0.4615,
+  "recon_precision": 1.0,
+  "recon_recall": 0.4,
+  "safety": 0.3846,
+  "stealth": 0.6373
+}

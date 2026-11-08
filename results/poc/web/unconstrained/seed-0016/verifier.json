@@ -1,0 +1,11 @@
+{
+  "blocked": [],
+  "checks": [],
+  "enabled": false,
+  "engine": "none",
+  "holds": [],
+  "n_steps_in": 13,
+  "n_steps_out": 13,
+  "z3_available": false,
+  "z3_verdict": null
+}

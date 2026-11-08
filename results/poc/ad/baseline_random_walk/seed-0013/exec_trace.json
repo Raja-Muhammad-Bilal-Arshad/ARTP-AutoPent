@@ -1,0 +1,101 @@
+{
+  "session": {
+    "n_nodes": 40,
+    "policies": {
+      "credential_attempts_max": 3,
+      "max_impact": "high",
+      "requires_approval": "high",
+      "scope": "poc-sandbox",
+      "stealth_budget": 2.5
+    },
+    "scenario": "ad",
+    "session": "poc-sim-2ab7db38"
+  },
+  "summary": {
+    "compromised": [
+      "ATTACKER",
+      "GRP_HR",
+      "u02",
+      "u07"
+    ],
+    "detection_rate": 0.0,
+    "mttd_note": "sum of dt until first alert; None = no alert in simulation window",
+    "mttd_sim_seconds": null,
+    "n_detected": 0,
+    "n_steps_executed": 4,
+    "n_steps_success": 3,
+    "scenario": "ad",
+    "seed": 13,
+    "session": "poc-sim-2ab7db38",
+    "terminated": false
+  },
+  "trace": [
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 3.0,
+      "d_score": 0.215,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "CVSS-driven exploitation probability",
+      "p_obs": 0.5286,
+      "p_true": 0.48,
+      "step_id": 1,
+      "success": false,
+      "target_id": "u_amy_rhodes",
+      "technique": "T1566.005"
+    },
+    {
+      "action": "enumerate",
+      "compromised": "u02",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 0.957,
+      "p_true": 1.0,
+      "step_id": 2,
+      "success": true,
+      "target_id": "u02",
+      "technique": "T1087"
+    },
+    {
+      "action": "enumerate",
+      "compromised": "u07",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 1.0,
+      "p_true": 1.0,
+      "step_id": 3,
+      "success": true,
+      "target_id": "u07",
+      "technique": "T1087"
+    },
+    {
+      "action": "enumerate",
+      "compromised": "GRP_HR",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 1.0,
+      "p_true": 1.0,
+      "step_id": 4,
+      "success": true,
+      "target_id": "GRP_HR",
+      "technique": "T1087"
+    }
+  ]
+}

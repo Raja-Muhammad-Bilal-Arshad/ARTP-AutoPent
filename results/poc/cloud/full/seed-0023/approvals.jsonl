@@ -1,0 +1,1 @@
+{"action": "attempt_exploit_simulated", "decision": "approved", "impact": "high", "operator": "scripted-standard", "plan": "POC_CLOUD_full_seed23", "reason": "scripted-standard operator", "step_id": 3, "technique": "T1550", "token": "HOLD-3-87cf4274", "ts": "2026-11-08T13:10:39"}

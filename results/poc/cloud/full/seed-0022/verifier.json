@@ -1,0 +1,60 @@
+{
+  "blocked": [],
+  "checks": [
+    {
+      "action": "enumerate",
+      "cumulative_stealth": 0.2,
+      "impact": "low",
+      "reachable": true,
+      "step_id": 1,
+      "target": "bucket:financial-backups-prod",
+      "technique": "T1580",
+      "violations": []
+    },
+    {
+      "action": "check_creds",
+      "cumulative_stealth": 0.5,
+      "impact": "medium",
+      "reachable": true,
+      "step_id": 2,
+      "target": "role:deploy-bot",
+      "technique": "T1552.001",
+      "violations": []
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cumulative_stealth": 0.9,
+      "impact": "high",
+      "reachable": true,
+      "step_id": 3,
+      "target": "fn:invoicer",
+      "technique": "T1550",
+      "violations": []
+    },
+    {
+      "action": "check_creds",
+      "cumulative_stealth": 1.2,
+      "impact": "medium",
+      "reachable": true,
+      "step_id": 4,
+      "target": "secret:api-prod-key",
+      "technique": "T1552.001",
+      "violations": []
+    }
+  ],
+  "enabled": true,
+  "engine": "python-bfs-smt-style",
+  "holds": [
+    {
+      "action": "attempt_exploit_simulated",
+      "impact": "high",
+      "step_id": 3,
+      "technique": "T1550",
+      "token": "HOLD-3-87cf4274"
+    }
+  ],
+  "n_steps_in": 4,
+  "n_steps_out": 4,
+  "z3_available": false,
+  "z3_verdict": null
+}

@@ -1,0 +1,49 @@
+name: CI - ARTP PoC
+
+# Verifies the PoC (simulation-only) on every push/PR:
+#   1. the 9 selftest invariants (schema, verifier, HITL, RPC isolation,
+#      determinism, Welch math, real-state pass-through, ...),
+#   2. the standalone unit tests in tests/test_poc.py,
+#   3. a fast SEEDS=5 experiment pass that regenerates Table 2 + figures
+#      end-to-end from the shipped code path.
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  poc-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib pytest
+
+      - name: PoC selftest (invariants)
+        run: python -m poc selftest
+
+      - name: Unit tests (standalone runner)
+        run: python tests/test_poc.py
+
+      - name: Regression safety net under pytest
+        run: pytest -q tests/test_poc.py
+
+      - name: Fast end-to-end experiment pass (SEEDS=5)
+        run: |
+          SEEDS=5 ./run_poc.sh > /tmp/poc_ci.log 2>&1 || { cat /tmp/poc_ci.log; exit 1; }
+          tail -n 5 /tmp/poc_ci.log
+          test -f results/poc/table2.csv
+          test -f results/poc/summary.json
+          test -f results/poc/figures/fig2_web_metrics.png
+          test -f results/poc/figures/fig3_cloud_mttd.png
+          test -f results/poc/figures/fig4_ad_chain.png

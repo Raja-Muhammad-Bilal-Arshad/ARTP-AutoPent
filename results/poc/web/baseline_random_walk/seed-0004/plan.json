@@ -1,0 +1,123 @@
+{
+  "ground_truth": {
+    "objective": "Dump users table via orders-db chain",
+    "objective_node": "data:users-db",
+    "optimal_path_length": 6,
+    "recon_targets": [
+      "ep:juice:/",
+      "ep:juice:/api",
+      "ep:web2:/login",
+      "ep:web2:/admin",
+      "ep:micro:/data/export"
+    ]
+  },
+  "objective_node": "data:users-db",
+  "plan": {
+    "L_opt": 6,
+    "config": "baseline_random_walk",
+    "ground_truth": {
+      "objective": "Dump users table via orders-db chain",
+      "objective_node": "data:users-db",
+      "optimal_path_length": 6,
+      "recon_targets": [
+        "ep:juice:/",
+        "ep:juice:/api",
+        "ep:web2:/login",
+        "ep:web2:/admin",
+        "ep:micro:/data/export"
+      ]
+    },
+    "objective_node": "data:users-db",
+    "plan_name": "POC_WEB_baseline_random_walk_seed4",
+    "scenario": "web",
+    "seed": 4,
+    "steps": [
+      {
+        "action": "crawl",
+        "cvss": 3.0,
+        "impact": "low",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'http' (no graph-aware priority).",
+        "stealth_cost": 0.1,
+        "step_id": 1,
+        "target": {
+          "id": "ep:juice:/",
+          "type": "endpoint"
+        },
+        "technique": "T1046"
+      },
+      {
+        "action": "enumerate",
+        "cvss": 5.0,
+        "impact": "medium",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'same-host' (no graph-aware priority).",
+        "stealth_cost": 0.2,
+        "step_id": 2,
+        "target": {
+          "id": "ep:juice:/api",
+          "type": "endpoint"
+        },
+        "technique": "T1087"
+      },
+      {
+        "action": "attempt_exploit_simulated",
+        "cvss": 8.0,
+        "impact": "medium",
+        "phase": "random-walk",
+        "rationale": "Uninformed random-walk baseline step along relation 'rce' (no graph-aware priority).",
+        "stealth_cost": 0.4,
+        "step_id": 3,
+        "target": {
+          "id": "svc:orders-db",
+          "type": "service"
+        },
+        "technique": "T1210"
+      }
+    ]
+  },
+  "plan_final_steps": [
+    {
+      "action": "crawl",
+      "cvss": 3.0,
+      "impact": "low",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'http' (no graph-aware priority).",
+      "stealth_cost": 0.1,
+      "step_id": 1,
+      "target": {
+        "id": "ep:juice:/",
+        "type": "endpoint"
+      },
+      "technique": "T1046"
+    },
+    {
+      "action": "enumerate",
+      "cvss": 5.0,
+      "impact": "medium",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'same-host' (no graph-aware priority).",
+      "stealth_cost": 0.2,
+      "step_id": 2,
+      "target": {
+        "id": "ep:juice:/api",
+        "type": "endpoint"
+      },
+      "technique": "T1087"
+    },
+    {
+      "action": "attempt_exploit_simulated",
+      "cvss": 8.0,
+      "impact": "medium",
+      "phase": "random-walk",
+      "rationale": "Uninformed random-walk baseline step along relation 'rce' (no graph-aware priority).",
+      "stealth_cost": 0.4,
+      "step_id": 3,
+      "target": {
+        "id": "svc:orders-db",
+        "type": "service"
+      },
+      "technique": "T1210"
+    }
+  ]
+}

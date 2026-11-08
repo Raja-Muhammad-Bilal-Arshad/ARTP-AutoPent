@@ -1,0 +1,101 @@
+{
+  "session": {
+    "n_nodes": 7,
+    "policies": {
+      "credential_attempts_max": 3,
+      "max_impact": "high",
+      "requires_approval": "high",
+      "scope": "poc-sandbox",
+      "stealth_budget": 2.5
+    },
+    "scenario": "cloud",
+    "session": "poc-sim-a322a6d1"
+  },
+  "summary": {
+    "compromised": [
+      "ATTACKER",
+      "bucket:financial-backups-prod",
+      "role:deploy-bot",
+      "secret:api-prod-key"
+    ],
+    "detection_rate": 0.0,
+    "mttd_note": "sum of dt until first alert; None = no alert in simulation window",
+    "mttd_sim_seconds": null,
+    "n_detected": 0,
+    "n_steps_executed": 4,
+    "n_steps_success": 3,
+    "scenario": "cloud",
+    "seed": 14,
+    "session": "poc-sim-a322a6d1",
+    "terminated": false
+  },
+  "trace": [
+    {
+      "action": "enumerate",
+      "compromised": "bucket:financial-backups-prod",
+      "cvss": 4.0,
+      "d_score": 0.06,
+      "detected": false,
+      "dt_sim_seconds": 2.0,
+      "epsilon": 0.05,
+      "impact": "low",
+      "note": "read-only reconnaissance",
+      "p_obs": 0.9759,
+      "p_true": 1.0,
+      "step_id": 1,
+      "success": true,
+      "target_id": "bucket:financial-backups-prod",
+      "technique": "T1580"
+    },
+    {
+      "action": "check_creds",
+      "compromised": "role:deploy-bot",
+      "cvss": 8.5,
+      "d_score": 0.315,
+      "detected": false,
+      "dt_sim_seconds": 4.0,
+      "epsilon": 0.05,
+      "impact": "medium",
+      "note": "credential surface exposed",
+      "p_obs": 0.4528,
+      "p_true": 0.5,
+      "step_id": 2,
+      "success": true,
+      "target_id": "role:deploy-bot",
+      "technique": "T1552.001"
+    },
+    {
+      "action": "escalate_simulated",
+      "cvss": 9.0,
+      "d_score": 0.53,
+      "detected": false,
+      "dt_sim_seconds": 8.0,
+      "epsilon": 0.05,
+      "impact": "critical",
+      "note": "privilege escalation from established foothold",
+      "p_obs": 0.8474,
+      "p_true": 0.85,
+      "step_id": 3,
+      "success": false,
+      "target_id": "data:all_loot",
+      "technique": "T1098"
+    },
+    {
+      "action": "exfiltrate_simulated",
+      "compromised": "secret:api-prod-key",
+      "cvss": 9.3,
+      "d_score": 0.535,
+      "detected": false,
+      "dt_sim_seconds": 8.0,
+      "epsilon": 0.05,
+      "impact": "critical",
+      "note": "critical pivot already compromised",
+      "p_obs": 0.9281,
+      "p_true": 0.9,
+      "step_id": 4,
+      "success": true,
+      "target_id": "secret:api-prod-key",
+      "technique": "T1567"
+    }
+  ]
+}
