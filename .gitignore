@@ -20,3 +20,6 @@ Thumbs.db
 
 # Manuscript (kept out of source control by default; remove to commit)
 ARTP.pdf
+
+# GUI session artifacts (user-local run outputs; regenerate via run_gui.sh)
+results/poc/gui/

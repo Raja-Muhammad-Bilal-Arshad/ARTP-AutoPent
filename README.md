@@ -26,6 +26,7 @@ seeded PRNG. Do **not** point this repository at systems you do not own.
 
 ```bash
 ./run_poc.sh                     # selftest → demo runs → full 3×4×30 experiments
+./run_gui.sh                     # browser GUI: http://127.0.0.1:8787 (§1.4)
 ```
 Runtime ≈ 40 s on a laptop; artifacts land in `results/poc/`.
 
@@ -40,7 +41,7 @@ Runtime ≈ 40 s on a laptop; artifacts land in `results/poc/`.
 | ⑤ single controlled run | `python3 -m poc run-poc --scenario ad --config full --seed 1 --out results/poc/quick` | One engagement with full artifact set. Useful flag combos:<br>• deny criticals: `--operator scripted-cautious`<br>• prompt per HOLD: `--interactive`<br>• explicit tokens: `--approve HOLD-5-009fb0e9 --approve HOLD-4-…`<br>• batch-approve: `--approve-all` | ~1 s |
 | ⑥ experiments | `python3 -m poc experiments --seeds 30 --outdir results/poc`<br>*or `SEEDS=10 ./run_poc.sh` for a faster pass* | 3 scenarios × 4 configs × 30 seeds = **360 isolated JSON-RPC sessions** → `table2.csv`, `summary.json`, per-scenario `runs.jsonl`, `figures/fig{2,3,4}*.png`. Welch p-values print at the end | ~30 s |
 | ⑦ inspect | open `results/poc/table2.csv`, `figures/*.png` | Table 2 layout: rows = (scenario, config), metrics = mean/SD/CI95/median/IQR + Welch blocks. One exemplar run dir: `results/poc/ad/full/seed-0001/` | : |
-| ⑧ tests | `python3 tests/test_poc.py` | **8/8 unit tests PASS** (also pytest-compatible) | ~5 s |
+| ⑧ tests | `python3 tests/test_poc.py`<br>`python3 tests/test_gui.py` | **8/8 PoC unit tests PASS**, then **31/31 GUI end-to-end tests PASS** (browser-less HTTP tests of every console endpoint; also pytest-compatible) | ~35 s |
 | ⑨ regenerate | `rm -rf results/poc && ./run_poc.sh` | Reproduce *everything from scratch*; never hand-edit `results/poc/` | ~40 s |
 
 ### 1.2 Optional: the legacy pipeline (original repo, needs Docker)
@@ -68,6 +69,33 @@ numbers (§6); use the PoC for anything you print.
 | want a fresh results tree | `rm -rf results/poc` then rerun; artifacts are generated, not edited |
 | child process died before responding (RPC error) | another `python3 -m poc.rpc` pinned the run dir? Not possible (stateless); rerun : if persistent, check `PYTHONPATH`/repo root |
 
+### 1.4 Web GUI : browser console (run everything from the screen)
+
+```bash
+./run_gui.sh                       # starts the console and opens http://127.0.0.1:8787
+./run_gui.sh --no-browser          # just print the URL
+./run_gui.sh --port 9000           # any port; --host default 127.0.0.1 (local only)
+```
+
+The console (`gui/`, see `gui/README.md`) is a **thin browser shell over the
+same PoC code** : the server is Python-stdlib-only (no new dependencies), the
+frontend is vanilla HTML/CSS/JS with a minimal monochrome design and a
+**light/dark theme toggle**. Tabs:
+
+| Tab | What you can do there | server endpoint |
+|---|---|---|
+| **Run** | pick a baked scenario / sample file / paste a custom state (with a **Validate** button), choose config + seed + HITL operator, approve HOLDs → full result view: metric cards (Coverage, Ep, Safety, Stealth, R, MTTD, recon), verifier blocks with reasons, plan-step verdicts, execution trace, artifact files | `POST /api/run` |
+| **Demo** | the CLI's narrative walkthrough per scenario | `POST /api/demo` |
+| **Experiments** | N-seed matrix with a **live progress bar**, then Table-2 rows, Welch tests and Fig 2/3/4 rendered in-page | `POST /api/experiments` + job polling |
+| **States & Samples** | the 5 sample state files (view / download / use / validate) + the **required-fields contract** for custom states | `GET/POST /api/samples`, `/api/validate-state` |
+| **Selftest** | the 9 PoC invariant checks with PASS/FAIL chips | `POST /api/selftest` |
+| **Help / Docs** | requirements, CLI⇄GUI mapping, artifact list | : |
+
+Every artifact a run produces (plan / verifier / approvals / trace / metrics) is
+browsable in-page and written under `results/poc/gui/` (ignored by git; the
+committed study artifacts stay in `results/poc/`). GUI runs are identical to
+CLI runs : same `poc.pipeline.run_pipeline`, same deterministic records.
+
 ---
 
 ## 2. Repository structure
@@ -78,6 +106,7 @@ AutoPENT/
 ├── POC.md                          # ★ PoC handout: claims → files → measured results
 ├── README.md                       # this file
 ├── run_poc.sh                      # ★ one-command PoC runner (selftest+demo+experiments)
+├── run_gui.sh                      # ★ one-command GUI launcher (§1.4; --port/--host)
 ├── requirements.txt                # dependencies (z3-solver optional, commented)
 │
 ├── poc/                            # ★ NEW : Proof-of-Concept package (simulation-only)
@@ -98,8 +127,25 @@ AutoPENT/
 │   ├── selftest.py                 #   invariant checks (also usable without pytest)
 │   └── __main__.py                 #   CLI: selftest / demo / run-poc / experiments
 │
+├── gui/                            # ★ NEW : browser console for the PoC (§1.4)
+│   ├── __init__.py                 #   package marker
+│   ├── __main__.py                 #   python3 -m gui ⇒ gui.server main()
+│   ├── server.py                   #   stdlib-only HTTP server wrapping poc/
+│   │                               #   (binds 127.0.0.1; thin shell : no logic)
+│   ├── static/
+│   │   ├── index.html              #   single-page console (6 tabs)
+│   │   ├── style.css               #   minimal monochrome CSS, light+dark themes
+│   │   └── app.js                  #   vanilla JS wiring (no build step)
+│   └── samples/                    #   sample state files for testing
+│       ├── state_web.json          #     baked web cluster (Run-tab ready)
+│       ├── state_ad.json           #     baked AD domain (4-hop kill chain)
+│       ├── state_cloud.json        #     baked cloud lab
+│       ├── state_mini_custom.json  #     smallest valid custom state (test on it!)
+│       └── state_invalid_demo.json #     deliberately broken → feeds the validator
+│
 ├── tests/
-│   └── test_poc.py                 # unit tests (pytest-compatible, runs standalone)
+│   ├── test_poc.py                 # PoC unit tests (pytest-compatible, standalone)
+│   └── test_gui.py                 # ★ NEW : GUI HTTP tests (31 checks, ephemeral port)
 │
 ├── results/                        # experiment outputs
 │   ├── poc/                        # ★ NEW : PoC artifacts (regenerate at will)
@@ -357,8 +403,12 @@ that makes a real deployment reviewable.
 |---|---|---|
 | `selftest` | 9 invariant checks (incl. real-state pass-through) | : |
 | `demo` | narrative engagement per scenario | `--scenario web\|ad\|cloud\|all`, `--seed N`, `--interactive` |
-| `run-poc` | one controlled engagement | `--scenario`, `--config full\|without_verifier\|unconstrained\|baseline_random_walk`, `--seed`, `--operator scripted-standard\|scripted-cautious`, `--approve-all`, `--approve HOLD-…` (repeatable), `--interactive`, `--out DIR` |
+| `run-poc` | one controlled engagement | `--scenario`, `--config full\|without_verifier\|unconstrained\|baseline_random_walk`, `--seed`, `--state-file X.json`, `--operator scripted-standard\|scripted-cautious`, `--approve-all`, `--approve HOLD-…` (repeatable), `--interactive`, `--out DIR` |
 | `experiments` | N×config runs → Table 2, Fig 2/3/4 | `--seeds 30`, `--outdir results/poc`, `--scenarios web,ad,cloud`, `--no-baseline` |
+
+GUI-only commands (`run_gui.sh` = `python3 -m gui.server`): `--host 127.0.0.1`,
+`--port 8787`, `--no-browser`, `--results PATH` : see `gui/README.md` for the
+HTTP API (`/api/run`, `/api/experiments`, `/api/validate-state`, …).
 
 Artifacts per run directory (`results/poc/<scenario>/<config>/seed-NNNN/`):
 `plan.json`, `verifier.json`, `approvals.jsonl`, `exec_trace.json`,
@@ -402,7 +452,9 @@ import from `harness/`, `agents/` or `tools/`.
 * **z3-solver: optional.** The verifier labels its engine (`z3-smt` vs
   `python-bfs-smt-style`) in `verifier.json`; installing `z3-solver` upgrades
   the engine automatically (see comment in `requirements.txt`).
-* No pytest needed (`tests/test_poc.py` runs standalone; it also works under pytest).
+* No pytest needed (`tests/test_poc.py` and `tests/test_gui.py` run standalone;
+  both also work under pytest). The GUI server itself is stdlib-only : no
+  web framework is required to run the console.
 * `myenv/` and `tools/myenv/` are legacy virtualenvs for the old pipeline.
 * JSON-RPC isolation is stdlib-only (`subprocess`): each engagement runs in its
   own freshly spawned `python3 -m poc.rpc --seed N` child over stdio.
@@ -435,7 +487,13 @@ auditor flags them, and Eq. 5 counts the flags.
 
 **How do I demo the human gate?** `python3 -m poc demo --scenario ad
 --interactive` prompts `approve/deny` per HOLD token; or approve explicitly
-with `--approve HOLD-4-<hash>` / `--approve-all`.
+with `--approve HOLD-4-<hash>` / `--approve-all`. In the GUI, `scripted-cautious`
+on the Run tab denies every critical HOLD in one click.
+
+**Is the GUI safe to leave running?** Yes : it binds **127.0.0.1 only**
+(others on the network cannot reach it), performs only the same simulation
+the CLI does, and serves files exclusively from the repository / results tree
+(whitelisted extensions). Stop it with `Ctrl+C`.
 
 ## 9. Contributing & safety policy
 

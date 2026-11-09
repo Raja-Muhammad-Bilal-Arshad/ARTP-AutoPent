@@ -32,11 +32,14 @@ jobs:
       - name: PoC selftest (invariants)
         run: python -m poc selftest
 
-      - name: Unit tests (standalone runner)
+      - name: PoC unit tests (standalone runner)
         run: python tests/test_poc.py
 
+      - name: GUI end-to-end tests (ephemeral-port server)
+        run: python tests/test_gui.py
+
       - name: Regression safety net under pytest
-        run: pytest -q tests/test_poc.py
+        run: pytest -q tests/
 
       - name: Fast end-to-end experiment pass (SEEDS=5)
         run: |

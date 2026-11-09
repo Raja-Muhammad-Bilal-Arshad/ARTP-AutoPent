@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "mini-custom-web-lab",
+    "scenario": "web",
+    "sandbox": true,
+    "scope": "mini-custom-sandbox",
+    "poc_version": "1.0.0"
+  },
+  "scenario": "web",
+  "nodes": [
+    { "id": "ATTACKER", "type": "attacker" },
+    { "id": "ep:app:/", "type": "endpoint" },
+    { "id": "svc:db", "type": "service", "cvss": 8.5, "critical": true },
+    { "id": "data:exports", "type": "data", "critical": true }
+  ],
+  "edges": [
+    { "from": "ATTACKER", "to": "ep:app:/", "rel": "http" },
+    { "from": "ep:app:/", "to": "svc:db", "rel": "rce", "technique": "T1210" },
+    { "from": "svc:db", "to": "data:exports", "rel": "exfil-target",
+      "technique": "T1567" }
+  ],
+  "policies": {
+    "scope": "mini-custom-sandbox",
+    "max_impact": "high",
+    "requires_approval": "high",
+    "stealth_budget": 2.5,
+    "credential_attempts_max": 3
+  },
+  "ground_truth": {
+    "objective_node": "data:exports",
+    "optimal_path_length": 3,
+    "recon_targets": ["ep:app:/", "svc:db"],
+    "objective": "Reach the exports store through the app service (smallest valid example used to test the custom-state path)"
+  }
+}

@@ -18,7 +18,7 @@ import csv
 import json
 import math
 import os
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List, Optional
 
 from .pipeline import run_pipeline
 from . import metrics as MET
@@ -33,11 +33,21 @@ SCENARIO_COLORS = {"full": "#1b7f4b", "without_verifier": "#d99414",
 
 def run_experiments(scenarios: List[str], n_seeds: int = 30,
                     outdir: str = "results/poc",
-                    baseline_random_walk: bool = True) -> Dict[str, Any]:
+                    baseline_random_walk: bool = True,
+                    progress_cb: Optional[
+                        Callable[[int, int, str, str, int], None]] = None,
+                    ) -> Dict[str, Any]:
+    """Run the full matrix and regenerate tables/figures.
+
+    ``progress_cb(done, total, scenario, config, seed)`` is called after each
+    run (optional; used by the GUI for a progress bar; ignored on CLI).
+    """
     os.makedirs(outdir, exist_ok=True)
     select_configs = list(CONFIGS)
     if baseline_random_walk:
         select_configs.append("baseline_random_walk")
+    total = len(scenarios) * len(select_configs) * n_seeds
+    done = 0
 
     all_rows: List[Dict[str, Any]] = []
     for scenario in scenarios:
@@ -52,6 +62,12 @@ def run_experiments(scenarios: List[str], n_seeds: int = 30,
                        "n_executed": rec["summary"]["n_steps_executed"],
                        "session": rec["session"]["session"]}
                 all_rows.append(row)
+                done += 1
+                if progress_cb:
+                    try:
+                        progress_cb(done, total, scenario, config, seed)
+                    except Exception:
+                        pass
 
     # ---- write runs.jsonl -------------------------------------------------
     for scenario in scenarios:

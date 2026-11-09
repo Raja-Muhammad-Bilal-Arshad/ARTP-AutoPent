@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "name": "deliberately-broken-state (validation demo)",
+    "sandbox": true
+  },
+  "scenario": "webx",
+  "nodes": [
+    { "id": "ATTACKER", "type": "attacker" },
+    { "id": "ep:app:/", "type": "endpoint" },
+    { "id": "data:exports", "type": "data", "critical": true }
+  ],
+  "edges": [
+    { "from": "ATTACKER", "to": "ep:app:/", "rel": "http" },
+    { "from": "ep:app:/", "to": "data:exports", "rel": "teleport" },
+    { "from": "ep:app:/", "to": "ghost-node", "rel": "rce" }
+  ],
+  "ground_truth": {
+    "optimal_path_length": "three-ish"
+  }
+}

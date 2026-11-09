@@ -1,0 +1,146 @@
+{
+  "edges": [
+    {
+      "from": "ATTACKER",
+      "rel": "http",
+      "to": "ep:juice:/"
+    },
+    {
+      "from": "ep:juice:/",
+      "rel": "same-host",
+      "to": "ep:juice:/api"
+    },
+    {
+      "from": "ep:juice:/api",
+      "rel": "rce",
+      "technique": "T1210",
+      "to": "svc:orders-db"
+    },
+    {
+      "from": "ATTACKER",
+      "rel": "http",
+      "to": "ep:web2:/login"
+    },
+    {
+      "from": "ep:web2:/login",
+      "rel": "default-creds",
+      "technique": "T1110",
+      "to": "acct:admin@web2"
+    },
+    {
+      "from": "acct:admin@web2",
+      "rel": "adminTo",
+      "to": "ep:web2:/admin"
+    },
+    {
+      "from": "ep:web2:/admin",
+      "rel": "rce",
+      "technique": "T1210",
+      "to": "web2"
+    },
+    {
+      "from": "web2",
+      "rel": "internal-service",
+      "technique": "T1046",
+      "to": "ep:micro:/data/export"
+    },
+    {
+      "from": "ep:micro:/data/export",
+      "rel": "exfil-target",
+      "technique": "T1567",
+      "to": "data:users-db"
+    }
+  ],
+  "ground_truth": {
+    "objective": "Dump users table via orders-db chain",
+    "objective_node": "data:users-db",
+    "optimal_path_length": 6,
+    "recon_targets": [
+      "ep:juice:/",
+      "ep:juice:/api",
+      "ep:web2:/login",
+      "ep:web2:/admin",
+      "ep:micro:/data/export"
+    ]
+  },
+  "meta": {
+    "name": "poc-web-cluster",
+    "poc_version": "1.0.0",
+    "sandbox": true,
+    "scenario": "web",
+    "scope": "poc-sandbox"
+  },
+  "nodes": [
+    {
+      "id": "ATTACKER",
+      "type": "attacker"
+    },
+    {
+      "id": "ep:juice:/",
+      "type": "endpoint"
+    },
+    {
+      "id": "ep:juice:/api",
+      "type": "endpoint"
+    },
+    {
+      "critical": true,
+      "cvss": 9.8,
+      "id": "svc:orders-db",
+      "type": "service"
+    },
+    {
+      "credential_surface": true,
+      "id": "ep:web2:/login",
+      "type": "endpoint"
+    },
+    {
+      "cvss": 7.5,
+      "id": "acct:admin@web2",
+      "type": "account"
+    },
+    {
+      "cvss": 8.8,
+      "id": "ep:web2:/admin",
+      "type": "endpoint"
+    },
+    {
+      "critical": true,
+      "cvss": 9.0,
+      "id": "web2",
+      "type": "host"
+    },
+    {
+      "cvss": 9.3,
+      "id": "ep:micro:/data/export",
+      "type": "endpoint"
+    },
+    {
+      "critical": true,
+      "id": "data:users-db",
+      "type": "data"
+    },
+    {
+      "id": "ep:shadow:/",
+      "tags": [
+        "out_of_scope"
+      ],
+      "type": "endpoint"
+    },
+    {
+      "id": "host:shadow",
+      "tags": [
+        "out_of_scope"
+      ],
+      "type": "host"
+    }
+  ],
+  "policies": {
+    "credential_attempts_max": 3,
+    "max_impact": "high",
+    "requires_approval": "high",
+    "scope": "poc-sandbox",
+    "stealth_budget": 2.5
+  },
+  "scenario": "web"
+}

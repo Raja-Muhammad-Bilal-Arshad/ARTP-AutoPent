@@ -1,0 +1,115 @@
+{
+  "edges": [
+    {
+      "from": "ATTACKER",
+      "rel": "public-read",
+      "technique": "T1580",
+      "to": "bucket:financial-backups-prod"
+    },
+    {
+      "from": "ATTACKER",
+      "rel": "public-read",
+      "technique": "T1580",
+      "to": "bucket:dev-tfstate"
+    },
+    {
+      "creds": "deploy-bot-keys",
+      "from": "bucket:financial-backups-prod",
+      "rel": "credential-extract",
+      "technique": "T1552.001",
+      "to": "role:deploy-bot"
+    },
+    {
+      "from": "role:deploy-bot",
+      "rel": "assume-role",
+      "technique": "T1550",
+      "to": "fn:invoicer"
+    },
+    {
+      "creds": "API_KEYS",
+      "from": "fn:invoicer",
+      "rel": "env-secret",
+      "technique": "T1552.001",
+      "to": "secret:api-prod-key"
+    },
+    {
+      "from": "role:deploy-bot",
+      "rel": "attach-admin",
+      "technique": "T1098",
+      "to": "data:all_loot"
+    },
+    {
+      "from": "data:all_loot",
+      "rel": "exfil-target",
+      "technique": "T1567",
+      "to": "secret:api-prod-key"
+    }
+  ],
+  "ground_truth": {
+    "objective": "Exfiltrate cloud secrets via over-privileged role",
+    "objective_node": "secret:api-prod-key",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "bucket:financial-backups-prod",
+      "bucket:dev-tfstate",
+      "role:deploy-bot",
+      "fn:invoicer"
+    ]
+  },
+  "meta": {
+    "name": "poc-cloud-lab",
+    "poc_version": "1.0.0",
+    "sandbox": true,
+    "scenario": "cloud",
+    "scope": "poc-sandbox"
+  },
+  "nodes": [
+    {
+      "id": "ATTACKER",
+      "type": "attacker"
+    },
+    {
+      "credential_surface": true,
+      "cvss": 8.0,
+      "id": "bucket:financial-backups-prod",
+      "public": true,
+      "type": "bucket"
+    },
+    {
+      "cvss": 7.0,
+      "id": "bucket:dev-tfstate",
+      "public": true,
+      "type": "bucket"
+    },
+    {
+      "critical": true,
+      "cvss": 8.5,
+      "id": "role:deploy-bot",
+      "type": "role"
+    },
+    {
+      "cvss": 8.2,
+      "id": "fn:invoicer",
+      "type": "function"
+    },
+    {
+      "critical": true,
+      "cvss": 9.5,
+      "id": "secret:api-prod-key",
+      "type": "secret"
+    },
+    {
+      "critical": true,
+      "id": "data:all_loot",
+      "type": "data"
+    }
+  ],
+  "policies": {
+    "credential_attempts_max": 3,
+    "max_impact": "high",
+    "requires_approval": "high",
+    "scope": "poc-sandbox",
+    "stealth_budget": 2.5
+  },
+  "scenario": "cloud"
+}

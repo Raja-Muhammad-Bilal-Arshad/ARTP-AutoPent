@@ -196,6 +196,8 @@ python3 -m poc run-poc --scenario ad --config full --seed 1 --interactive
 
 ```bash
 ./run_poc.sh                 # selftest → demo → 3×4×30 experiments + figures
+./run_gui.sh                 # browser console (see README §1.4 / gui/README.md)
 python3 -m poc selftest      # 9 invariant checks
 python3 tests/test_poc.py    # 8 unit tests (no pytest needed)
+python3 tests/test_gui.py    # 31 GUI end-to-end checks (no pytest needed)
 ```

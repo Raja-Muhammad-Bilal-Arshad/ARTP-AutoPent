@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoPENT Console — ARTP PoC (simulation-only)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-name">AutoPENT Console</span>
+    <span class="brand-sub">ARTP PoC &middot; simulation-only</span>
+  </div>
+  <div class="topbar-right">
+    <span id="engine-chip" class="chip" title="verifier engine">engine: …</span>
+    <span id="health-chip" class="chip" title="server status">…</span>
+    <button id="theme-toggle" class="btn btn-ghost" type="button"
+            title="toggle light / dark">◐ theme</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="run"       type="button">Run</button>
+  <button class="tab"        data-tab="demo"      type="button">Demo</button>
+  <button class="tab"        data-tab="experiments" type="button">Experiments</button>
+  <button class="tab"        data-tab="states"    type="button">States &amp; Samples</button>
+  <button class="tab"        data-tab="selftest"  type="button">Selftest</button>
+  <button class="tab"        data-tab="docs"      type="button">Help / Docs</button>
+</nav>
+
+<main>
+
+<!-- ==================================================================== -->
+<!-- RUN                                                                   -->
+<!-- ==================================================================== -->
+<section class="panel active" id="panel-run">
+  <div class="grid-2">
+    <div class="card">
+      <h2>1 · Configure</h2>
+      <form id="run-form" autocomplete="off">
+
+        <fieldset>
+          <legend>Attack surface (required)</legend>
+          <div class="radio-row" id="run-source">
+            <label><input type="radio" name="source" value="baked" checked>
+              Baked scenario</label>
+            <label><input type="radio" name="source" value="sample">
+              Sample file</label>
+            <label><input type="radio" name="source" value="custom">
+              Custom state (paste or upload)</label>
+          </div>
+          <div id="run-src-baked">
+            <label class="lbl" for="run-scenario">Scenario</label>
+            <select id="run-scenario"></select>
+            <p class="hint" id="run-scenario-info"></p>
+          </div>
+          <div id="run-src-sample" class="hidden">
+            <label class="lbl" for="run-sample">Sample state file</label>
+            <select id="run-sample"></select>
+            <p class="hint" id="run-sample-info"></p>
+          </div>
+          <div id="run-src-custom" class="hidden">
+            <label class="lbl" for="run-state-json">State JSON — required
+              fields: scenario, nodes[], edges[], policies, ground_truth
+              {objective_node, optimal_path_length, recon_targets}
+            </label>
+            <textarea id="run-state-json" rows="10"
+              placeholder='{"scenario":"web", "nodes":[…], "edges":[…], …}'
+              spellcheck="false"></textarea>
+            <div class="row-wrap">
+              <input type="file" id="run-state-file" accept=".json">
+              <button type="button" class="btn" id="btn-validate-run-state">
+                Validate</button>
+            </div>
+            <div id="run-state-validate" class="validate-box hidden"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Run parameters</legend>
+          <div class="grid-4">
+            <div>
+              <label class="lbl" for="run-config">Config</label>
+              <select id="run-config">
+                <option value="full">full (verifier + HITL)</option>
+                <option value="without_verifier">without_verifier</option>
+                <option value="unconstrained">unconstrained</option>
+                <option value="baseline_random_walk">baseline_random_walk</option>
+              </select>
+            </div>
+            <div>
+              <label class="lbl" for="run-seed">Seed (1…10⁶)</label>
+              <input type="number" id="run-seed" min="1" max="1000000"
+                     value="1" required>
+            </div>
+            <div>
+              <label class="lbl" for="run-operator">HITL operator</label>
+              <select id="run-operator">
+                <option value="scripted-standard">scripted-standard</option>
+                <option value="scripted-cautious">scripted-cautious</option>
+              </select>
+            </div>
+            <div>
+              <label class="lbl">Overrides</label>
+              <label class="inline"><input type="checkbox" id="run-approve-all">
+                approve all HOLDs</label>
+            </div>
+          </div>
+          <label class="lbl" for="run-tokens">Explicit HOLD tokens
+            <span class="dim">(comma-separated; optional)</span></label>
+          <input type="text" id="run-tokens"
+                 placeholder="HOLD-2-009fb0e9, HOLD-4-…">
+        </fieldset>
+
+        <div class="row-wrap">
+          <button type="submit" class="btn btn-primary" id="btn-run">
+            ▶ Run engagement (≈1 s)</button>
+          <span id="run-status" class="hint"></span>
+        </div>
+        <p class="hint">Simulation-only: no live targets are contacted; every
+          outcome and timestamp is simulated deterministically from the seed.
+          Artifacts land in <code>results/poc/gui/runs/…</code>.</p>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>2 · Result</h2>
+      <div id="run-output" class="hidden">
+        <div class="row-wrap tight">
+          <span class="chip" id="run-meta"></span>
+          <span class="chip" id="run-engine"></span>
+        </div>
+        <div class="metric-grid" id="run-metrics"></div>
+        <div class="subcard" id="run-verifier"></div>
+        <h3>Plan steps (verifier / HITL verdict)</h3>
+        <div class="table-wrap" id="run-plan"></div>
+        <h3>Simulated execution trace (JSON-RPC child)</h3>
+        <div class="table-wrap" id="run-trace"></div>
+        <h3>Artifacts</h3>
+        <div id="run-artifacts" class="links"></div>
+      </div>
+      <div id="run-empty" class="hint">Configure the run on the left and press
+        <b>Run engagement</b>. Everything the CLI prints — plan, verifier
+        blocks, HITL holds, trace, metrics — appears here.</div>
+      <h3>Recent GUI runs</h3>
+      <div id="recent-runs" class="dim small">loading…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<!-- DEMO                                                                  -->
+<!-- ==================================================================== -->
+<section class="panel" id="panel-demo">
+  <div class="card">
+    <h2>Demo walkthrough (same narration as the CLI)</h2>
+    <div class="grid-4">
+      <div><label class="lbl" for="demo-scenario">Scenario</label>
+        <select id="demo-scenario"></select></div>
+      <div><label class="lbl" for="demo-seed">Seed</label>
+        <input type="number" id="demo-seed" value="7" min="1">
+      </div>
+      <div class="row-end"><button class="btn btn-primary" id="btn-demo">
+        ▶ Run demo</button></div>
+    </div>
+    <p class="hint">Runs the full-loop framework (<code>full</code>, scripted
+      operator) and prints the same narration the CLI shows. Artifacts are
+      written to <code>results/poc/gui/demo/</code>.</p>
+    <div id="demo-metrics" class="metric-grid"></div>
+    <pre id="demo-narrative" class="narrative hidden"></pre>
+    <div id="demo-artifacts" class="links"></div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<!-- EXPERIMENTS                                                           -->
+<!-- ==================================================================== -->
+<section class="panel" id="panel-experiments">
+  <div class="card">
+    <h2>Experiment matrix — N seeded runs × configs (Table 2 + Figs 2–4)</h2>
+    <div class="grid-4">
+      <div><label class="lbl" for="exp-seeds">Seeds (N)</label>
+        <input type="number" id="exp-seeds" min="1" max="200" value="30">
+        <p class="hint">30 ≈ 20–40 s. 5 = CI quick check.</p></div>
+      <div>
+        <label class="lbl">Scenarios</label>
+        <label class="inline"><input type="checkbox" class="exp-scen"
+               value="web" checked> web</label>
+        <label class="inline"><input type="checkbox" class="exp-scen"
+               value="ad" checked> ad</label>
+        <label class="inline"><input type="checkbox" class="exp-scen"
+               value="cloud" checked> cloud</label>
+      </div>
+      <div class="row-end"><button class="btn btn-primary" id="btn-exp">
+        ▶ Start experiments</button></div>
+    </div>
+    <div class="progress hidden" id="exp-progress-wrap">
+      <div class="progress-bar" id="exp-progress"></div>
+      <span class="hint" id="exp-progress-label">…</span>
+    </div>
+    <div id="exp-error" class="validate-box hidden"></div>
+    <div id="exp-output" class="hidden">
+      <h3>Table 2 headline (mean values; full CSV linked below)</h3>
+      <div class="table-wrap" id="exp-table"></div>
+      <h3>Welch tests (framework vs ablations)</h3>
+      <div class="table-wrap" id="exp-welch"></div>
+      <h3>Figures (regenerated from these runs)</h3>
+      <div id="exp-figures" class="fig-row"></div>
+      <div id="exp-links" class="links"></div>
+    </div>
+    <h3>Past GUI experiment jobs</h3>
+    <div id="past-experiments" class="dim small">loading…</div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<!-- STATES & SAMPLES                                                      -->
+<!-- ==================================================================== -->
+<section class="panel" id="panel-states">
+  <div class="grid-2">
+    <div class="card">
+      <h2>Sample state files (for testing everything quickly)</h2>
+      <div id="samples-list"></div>
+      <h2>Required fields of a state file</h2>
+      <table class="table">
+        <thead><tr><th>field</th><th>type / required</th><th>meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>scenario</code></td><td>str, required</td>
+              <td>web | ad | cloud — selects the protected-node types
+                  (|V<sub>total</sub>|)</td></tr>
+          <tr><td><code>nodes</code></td><td>array, required</td>
+              <td>every node as <code>{"id", "type", …}</code>; must include
+                  an <code>ATTACKER</code> start node</td></tr>
+          <tr><td><code>edges</code></td><td>array, required</td>
+              <td><code>{"from","to","rel","technique"}</code>; relations must
+                  be in the planner's <code>REL_ACTION</code> map
+                  (http, public-read, rce, phish, kerberoastable, adminTo,
+                  dcsync, credential-extract, attach-admin, exfil-target,
+                  …)</td></tr>
+          <tr><td><code>policies</code></td><td>object, recommended</td>
+              <td>scope, max_impact, requires_approval, stealth_budget,
+                  credential_attempts_max (defaults applied if missing)</td></tr>
+          <tr><td><code>ground_truth</code></td><td>object, required</td>
+              <td><code>objective_node</code> (planning anchor, Eq. 11) must
+                  be reachable from ATTACKER; <code>optimal_path_length</code>
+                  (Ep maxes out when it matches the real shortest path);
+                  <code>recon_targets</code> (recon precision/recall)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Validate a custom state</h2>
+      <label class="lbl" for="val-textarea">Paste state JSON — or upload a
+        file (e.g. a real-lab export)</label>
+      <textarea id="val-textarea" rows="14" spellcheck="false"
+        placeholder='{"scenario":"ad", …}'></textarea>
+      <div class="row-wrap">
+        <input type="file" id="val-file" accept=".json">
+        <button class="btn" id="btn-validate">Validate</button>
+        <button class="btn" id="btn-send-to-run">Send to Run tab</button>
+      </div>
+      <div id="validate-output" class="validate-box hidden"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<!-- SELFTEST                                                              -->
+<!-- ==================================================================== -->
+<section class="panel" id="panel-selftest">
+  <div class="card">
+    <h2>PoC invariant checks (9)</h2>
+    <p class="hint">Runs the exact same checks the CLI selftest runs: 6-verb
+      schema, verifier blocks/holds, L_opt chains, HITL modes, JSON-RPC child
+      isolation, seed determinism, Welch math, pipeline smoke, and the
+      real-state pass-through. Takes a few seconds.</p>
+    <button class="btn btn-primary" id="btn-selftest">▶ Run selftest</button>
+    <span id="selftest-status" class="hint"></span>
+    <div id="selftest-output" class="hidden"></div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<!-- DOCS                                                                  -->
+<!-- ==================================================================== -->
+<section class="panel" id="panel-docs">
+  <div class="grid-2">
+    <div class="card">
+      <h2>What this console is</h2>
+      <p>A <b>local browser interface</b> over the <code>poc/</code> package —
+        the paper-faithful, simulation-only proof of concept. The server is a
+        thin shell: planning, verification, HITL, execution and metrics are
+        all performed by the same code the CLI uses
+        (<code>poc.pipeline.run_pipeline</code>, <code>poc.exp</code>), so
+        GUI results are the PoC's results.</p>
+      <p class="good">Everything is simulation-only: no exploit payloads, no
+        live targets, seeded/deterministic PRNG, sandbox-scoped.</p>
+      <h2>Requirements</h2>
+      <ul class="tightlist">
+        <li>Python ≥ 3.10 (validated on 3.13) — <b>no extra packages needed to
+            start</b>: the server is stdlib-only.</li>
+        <li><code>matplotlib</code> — required only for the <b>Experiments</b>
+            tab (it regenerates the figures). One run needs no dependencies
+            beyond Python.</li>
+        <li><code>z3-solver</code> — <i>optional</i>; upgrades the verifier
+            engine label from <code>python-bfs-smt-style</code> to
+            <code>z3-smt</code>.</li>
+      </ul>
+      <h2>Launch</h2>
+      <pre class="narrative">./run_gui.sh                    # opens http://127.0.0.1:8787
+python3 -m gui.server --port 8787 --host 127.0.0.1 --no-browser</pre>
+      <p class="hint">The server binds <b>127.0.0.1 only</b> — it is never
+        reachable from the network.</p>
+      <h2>GUI action → CLI equivalent</h2>
+      <table class="table">
+        <tbody>
+          <tr><td>Run tab</td><td><code>python3 -m poc run-poc …</code></td></tr>
+          <tr><td>Demo tab</td><td><code>python3 -m poc demo --scenario …</code></td></tr>
+          <tr><td>Experiments tab</td><td><code>python3 -m poc experiments --seeds N</code></td></tr>
+          <tr><td>Selftest tab</td><td><code>python3 -m poc selftest</code></td></tr>
+          <tr><td>Custom state</td><td><code>run-poc --state-file X.json</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Artifacts every run writes</h2>
+      <ul class="tightlist">
+        <li><code>plan.json</code> — the planner's steps + final executed plan</li>
+        <li><code>verifier.json</code> — engine, blocked steps with reasons,
+            HITL holds</li>
+        <li><code>approvals.jsonl</code> — every HITL decision (audit trail)</li>
+        <li><code>exec_trace.json</code> — isolated JSON-RPC child session
+            trace</li>
+        <li><code>metrics.json</code> — Coverage (Eq. 3), Ep (Eq. 4/11),
+            Safety (Eq. 5), Stealth (Eq. 6), composite R (Eq. 9), detection
+            rate, recon precision/recall, MTTD</li>
+        <li>AD runs add <code>surface_focus.csv</code> (Table-4 style)</li>
+      </ul>
+      <p class="hint">GUI artifacts: <code>results/poc/gui/runs/</code> ·
+        <code>…/demo/</code> · <code>…/experiments/&lt;job&gt;/</code>.
+        CLI/experiment artifacts live under <code>results/poc/</code>.</p>
+      <h2>Safety &amp; scope</h2>
+      <p>The GUI inherits the PoC's guarantees: every step passes the
+        6-verb schema, blocklist, scope checks, SMT-style feasibility and the
+        non-bypassable human gate before it is "executed" against a
+        simulated sandbox. Nothing here touches, scans or exploits any byte
+        on any network.</p>
+      <h2>Where the code lives</h2>
+      <pre class="narrative">gui/server.py    # the thin stdlib server (this page's backend)
+gui/static/      # this console (vanilla HTML/CSS/JS, no build step)
+gui/samples/     # sample state files for quick testing
+poc/             # the PoC — read POC.md for the claim → file map
+tests/           # tests/test_poc.py (8) + tests/test_gui.py (12)</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<dialog id="viewer">
+  <header class="dialog-head">
+    <b id="viewer-title">file</b>
+    <span class="spacer"></span>
+    <button class="btn" id="viewer-copy" type="button">copy</button>
+    <button class="btn btn-ghost" id="viewer-close" type="button">✕</button>
+  </header>
+  <pre id="viewer-code"></pre>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

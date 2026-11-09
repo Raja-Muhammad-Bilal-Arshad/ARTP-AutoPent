@@ -1,0 +1,638 @@
+{
+  "edges": [
+    {
+      "from": "ATTACKER",
+      "rel": "phish",
+      "technique": "T1566.005",
+      "to": "u_amy_rhodes"
+    },
+    {
+      "from": "u_amy_rhodes",
+      "rel": "kerberoastable",
+      "technique": "T1558.003",
+      "to": "svc_sql"
+    },
+    {
+      "from": "svc_sql",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "WKST-01"
+    },
+    {
+      "from": "WKST-01",
+      "rel": "dcsync",
+      "technique": "T1003.006",
+      "to": "DC-01"
+    },
+    {
+      "from": "DC-01",
+      "rel": "owns",
+      "technique": "T1098",
+      "to": "DOAZLAB-POC"
+    },
+    {
+      "from": "u_amy_rhodes",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u01"
+    },
+    {
+      "from": "u01",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u_amy_rhodes",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u02"
+    },
+    {
+      "from": "u02",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u_amy_rhodes",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u03"
+    },
+    {
+      "from": "u03",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u04"
+    },
+    {
+      "from": "u04",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u05"
+    },
+    {
+      "from": "u05",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u06"
+    },
+    {
+      "from": "u06",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u07"
+    },
+    {
+      "from": "u07",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u08"
+    },
+    {
+      "from": "u08",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u09"
+    },
+    {
+      "from": "u09",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u10"
+    },
+    {
+      "from": "u10",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u11"
+    },
+    {
+      "from": "u11",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u12"
+    },
+    {
+      "from": "u12",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u13"
+    },
+    {
+      "from": "u13",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u14"
+    },
+    {
+      "from": "u14",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u15"
+    },
+    {
+      "from": "u15",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u16"
+    },
+    {
+      "from": "u16",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u17"
+    },
+    {
+      "from": "u17",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u18"
+    },
+    {
+      "from": "u18",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u19"
+    },
+    {
+      "from": "u19",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u20"
+    },
+    {
+      "from": "u20",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u21"
+    },
+    {
+      "from": "u21",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "u02",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u22"
+    },
+    {
+      "from": "u22",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HR"
+    },
+    {
+      "from": "u03",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u23"
+    },
+    {
+      "from": "u23",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_HELPDESK"
+    },
+    {
+      "from": "u01",
+      "rel": "manages",
+      "technique": "T1087",
+      "to": "u24"
+    },
+    {
+      "from": "u24",
+      "rel": "memberOf",
+      "technique": "T1087",
+      "to": "GRP_IT"
+    },
+    {
+      "from": "GRP_IT",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "FS01"
+    },
+    {
+      "from": "u01",
+      "rel": "hasSession",
+      "technique": "T1046",
+      "to": "FS01"
+    },
+    {
+      "from": "GRP_IT",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "FS02"
+    },
+    {
+      "from": "u02",
+      "rel": "hasSession",
+      "technique": "T1046",
+      "to": "FS02"
+    },
+    {
+      "from": "GRP_IT",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "FS03"
+    },
+    {
+      "from": "u03",
+      "rel": "hasSession",
+      "technique": "T1046",
+      "to": "FS03"
+    },
+    {
+      "from": "GRP_IT",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "FS04"
+    },
+    {
+      "from": "u04",
+      "rel": "hasSession",
+      "technique": "T1046",
+      "to": "FS04"
+    },
+    {
+      "from": "GRP_IT",
+      "rel": "adminTo",
+      "technique": "T1078",
+      "to": "FS05"
+    },
+    {
+      "from": "u05",
+      "rel": "hasSession",
+      "technique": "T1046",
+      "to": "FS05"
+    },
+    {
+      "from": "u02",
+      "rel": "memberOf",
+      "technique": "T1078",
+      "to": "GRP_DOMAIN_ADMINS"
+    },
+    {
+      "from": "GRP_HELPDESK",
+      "rel": "memberOf",
+      "technique": "T1078",
+      "to": "GRP_DOMAIN_ADMINS"
+    },
+    {
+      "from": "GRP_DOMAIN_ADMINS",
+      "rel": "adminTo",
+      "technique": "T1003.006",
+      "to": "DC-01"
+    }
+  ],
+  "ground_truth": {
+    "chain": [
+      "Phishing",
+      "Kerberoasting",
+      "AdminTo",
+      "DCSync"
+    ],
+    "objective": "Domain Dominance (DCSync against DC-01)",
+    "objective_node": "DC-01",
+    "optimal_path_length": 4,
+    "recon_targets": [
+      "u_amy_rhodes",
+      "svc_sql",
+      "WKST-01",
+      "DC-01"
+    ]
+  },
+  "meta": {
+    "name": "poc-ad-domain",
+    "poc_version": "1.0.0",
+    "sandbox": true,
+    "scenario": "ad",
+    "scope": "poc-sandbox"
+  },
+  "nodes": [
+    {
+      "id": "ATTACKER",
+      "type": "attacker"
+    },
+    {
+      "critical": true,
+      "cvss": 10.0,
+      "id": "DC-01",
+      "type": "computer"
+    },
+    {
+      "critical": true,
+      "cvss": 10.0,
+      "id": "DOAZLAB-POC",
+      "type": "domain"
+    },
+    {
+      "cvss": 6.0,
+      "id": "u_amy_rhodes",
+      "spn": false,
+      "type": "user"
+    },
+    {
+      "becomes": "domain-admin-session-bearer",
+      "cvss": 8.5,
+      "id": "svc_sql",
+      "spn": true,
+      "type": "service-account"
+    },
+    {
+      "cvss": 8.0,
+      "id": "WKST-01",
+      "type": "computer"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u01",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u02",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u03",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u04",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u05",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u06",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u07",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u08",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u09",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u10",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u11",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u12",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u13",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u14",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u15",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u16",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u17",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u18",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u19",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u20",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u21",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u22",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u23",
+      "type": "user"
+    },
+    {
+      "cvss": 4.0,
+      "id": "u24",
+      "type": "user"
+    },
+    {
+      "cvss": 5.0,
+      "id": "FS01",
+      "type": "computer"
+    },
+    {
+      "cvss": 5.0,
+      "id": "FS02",
+      "type": "computer"
+    },
+    {
+      "cvss": 5.0,
+      "id": "FS03",
+      "type": "computer"
+    },
+    {
+      "cvss": 5.0,
+      "id": "FS04",
+      "type": "computer"
+    },
+    {
+      "cvss": 5.0,
+      "id": "FS05",
+      "type": "computer"
+    },
+    {
+      "cvss": 5.5,
+      "id": "GRP_IT",
+      "type": "group"
+    },
+    {
+      "cvss": 5.5,
+      "id": "GRP_HR",
+      "type": "group"
+    },
+    {
+      "cvss": 5.5,
+      "id": "GRP_HELPDESK",
+      "type": "group"
+    },
+    {
+      "cvss": 9.5,
+      "id": "GRP_DOMAIN_ADMINS",
+      "type": "group"
+    },
+    {
+      "cvss": 9.5,
+      "id": "GRP_ENTERPRISE_ADMINS",
+      "type": "group"
+    }
+  ],
+  "policies": {
+    "credential_attempts_max": 3,
+    "max_impact": "high",
+    "requires_approval": "high",
+    "scope": "poc-sandbox",
+    "stealth_budget": 2.5
+  },
+  "scenario": "ad"
+}
